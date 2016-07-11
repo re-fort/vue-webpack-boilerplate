@@ -14,7 +14,7 @@ A Webpack boilerplate with vue-loader,vue-resource and vue-router
 
 ## Setup
 ```
-git clone https://github.com/re-fort/vue-webpack-boilerplate
+git clone -b gh-pages https://github.com/re-fort/vue-webpack-boilerplate
 cd vue-webpack-boilerplate
 npm i
 npm run dev
