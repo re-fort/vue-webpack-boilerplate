@@ -1,0 +1,16 @@
+// Bulma stylesheet
+.hero.is-primary {
+  a.nav-item {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.image {
+  img {
+    border-radius: 15px;
+  }
+}
+
+.pagination {
+  padding-top: 30px;
+}
