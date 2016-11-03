@@ -6,16 +6,16 @@
         a.button(:class="isEndPage ? 'is-disabled' : ''" @click="showNext") Next &#62;&#62;
         ul
           li(v-for="i in pageCount")
-            a.button(:class="i == page ? 'is-primary' : ''" @click="showPage(i)") {{ i + 1 }}
+            a.button(:class="i === page ? 'is-primary' : ''" @click="showPage(i)") {{ i }}
 </template>
 
 <script>
 export default {
+  name: 'Pagination',
   props: {
     page: {
       type: Number,
-      required: true,
-      twoWay: true
+      required: true
     },
     dispItemSize: {
       type: Number,
@@ -28,10 +28,10 @@ export default {
   },
   computed: {
     isStartPage: function(){
-      return this.page == 0
+      return this.page === 1
     },
     isEndPage: function(){
-      return (this.page + 1) * this.dispItemSize >= this.items.length
+      return this.page * this.dispItemSize >= this.items.length
     },
     pageCount: function() {
       return Math.ceil(this.items.length / this.dispItemSize)
@@ -39,13 +39,13 @@ export default {
   },
   methods: {
     showPrev: function() {
-      this.page--
+      this.$emit('page', --this.page)
     },
     showNext: function() {
-      this.page++
+      this.$emit('page', ++this.page)
     },
     showPage: function(index) {
-      this.page = index
+      this.$emit('page', this.page = index)
     }
   }
 }

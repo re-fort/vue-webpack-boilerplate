@@ -20,23 +20,24 @@
             .content
               a(:href="repo.html_url" target="_blank") {{ repo.full_name }}
               p.description {{ repo.description }}
-    pagination(:page.sync="page", :disp-item-size="dispItemSize", :items="items")
+    pagination(:page="page", :disp-item-size="dispItemSize", :items="items", @page="setPage")
 </template>
 
 <script>
 import mixinSearch from 'mixins/search'
+import mixinPage from 'mixins/page'
 import pagination from 'components/partials/Pagination'
 export default {
+  name: 'Repo',
   components: {
     pagination
   },
-  mixins: [mixinSearch],
+  mixins: [mixinSearch, mixinPage],
   data () {
     return {
       query: '',
       message: '',
       items: [],
-      page: 0,
       dispItemSize: 5,
       isLoading: false
     }

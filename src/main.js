@@ -12,7 +12,11 @@ Vue.use(VueResource)
 
 // Vue Routing
 Vue.use(VueRouter)
-let router = new VueRouter()
-router.map(routes)
-
-router.start(Vue.extend(App), '#app')
+const router = new VueRouter(routes)
+new Vue({
+  router,
+  template: '<App ref="app" />',
+  components: {
+    'App': App
+  }
+}).$mount('#app')

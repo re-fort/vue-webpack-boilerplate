@@ -5,7 +5,7 @@
         .container
           nav.nav
             .nav-left
-              a.nav-item(v-link="{path: '/'}")
+              router-link.nav-item(:to="'/'")
                 span vue-webpack-boilerplate
         a.github-corner(href="https://github.com/re-fort/vue-webpack-boilerplate")
           svg(width="54" height="54" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;")
@@ -19,3 +19,9 @@
           a(href="https://github.com/re-fort/vue-webpack-boilerplate")
             i.fa.fa-github
 </template>
+
+<script>
+export default {
+  name: 'App'
+}
+</script>

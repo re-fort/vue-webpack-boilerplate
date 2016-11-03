@@ -19,23 +19,24 @@
           .media-content
             .content
               a(:href="user.html_url" target="_blank") {{ user.login }}
-    pagination(:page.sync="page", :disp-item-size="dispItemSize", :items="items")
+    pagination(:page="page", :disp-item-size="dispItemSize", :items="items", @page="setPage")
 </template>
 
 <script>
 import mixinSearch from 'mixins/search'
+import mixinPage from 'mixins/page'
 import pagination from 'components/partials/Pagination'
 export default {
+  name: 'User',
   components: {
     pagination
   },
-  mixins: [mixinSearch],
+  mixins: [mixinSearch, mixinPage],
   data () {
     return {
       query: '',
       message: '',
       items: [],
-      page: 0,
       dispItemSize: 8,
       isLoading: false
     }

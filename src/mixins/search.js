@@ -1,12 +1,6 @@
-// Mixin for pagination
+// Mixin for search
 import {Xhr} from 'base/vue-resource'
 export default {
-  computed: {
-    dispItems: function() {
-      let startPage = this.page * this.dispItemSize
-      return this.items.slice(startPage, startPage + this.dispItemSize)
-    }
-  },
   methods: {
     searchStart: function() {
       this.message = ''
@@ -19,7 +13,7 @@ export default {
     },
     success: function(response) {
       this.items = response.data.items
-      this.page = 0
+      this.page = 1
       this.searchEnd()
     },
     error: function(response) {

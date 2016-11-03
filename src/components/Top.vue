@@ -2,7 +2,7 @@
   section.section
     .columns
       .column.is-3.is-offset-2(v-for="button in buttons")
-        a.button.selection(v-link="{path: button.url}")
+        router-link.button.selection(:to="button.url")
           span.icon
             i.fa(v-bind:class="button.icon")
           span {{ button.text }}
@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'Top',
   data () {
     return {
       buttons: [
