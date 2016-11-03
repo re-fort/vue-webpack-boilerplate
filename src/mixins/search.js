@@ -2,7 +2,7 @@
 import {Xhr} from 'base/vue-resource'
 export default {
   computed: {
-    dipsItems: function() {
+    dispItems: function() {
       let startPage = this.page * this.dispItemSize
       return this.items.slice(startPage, startPage + this.dispItemSize)
     }

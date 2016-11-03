@@ -10,7 +10,7 @@
         .column.is-6.is-offset-3
           .message.is-danger
             .message-body {{ message }}
-    .columns(v-for="user in dipsItems")
+    .columns(v-for="user in dispItems")
       .column.is-6.is-offset-3
         .media
           figure.media-left
@@ -19,15 +19,15 @@
           .media-content
             .content
               a(:href="user.html_url" target="_blank") {{ user.login }}
-    pagenation(:page.sync="page", :disp-item-size="dispItemSize", :items="items")
+    pagination(:page.sync="page", :disp-item-size="dispItemSize", :items="items")
 </template>
 
 <script>
 import mixinSearch from 'mixins/search'
-import pagenation from 'components/partials/Pagenation'
+import pagination from 'components/partials/Pagination'
 export default {
   components: {
-    pagenation
+    pagination
   },
   mixins: [mixinSearch],
   data () {

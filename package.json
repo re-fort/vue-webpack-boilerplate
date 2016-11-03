@@ -2,6 +2,11 @@
   "name": "vue-webpack-boilerplate",
   "description": "A Webpack boilerplate with vue-loader,vue-resource and vue-router",
   "author": "re-fort",
+  "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/re-fort/vue-webpack-boilerplate.git"
+  },
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --hide-modules",
