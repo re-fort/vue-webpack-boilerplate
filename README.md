@@ -4,7 +4,7 @@ vue-webpack-boilerplate
 A Webpack boilerplate with vue-loader,vue-resource and vue-router
 
 ## What's included
-- Vue(1.x.x)
+- Vue(2.x.x)
 - webpack
 - vue-loader
 - vue-resource
