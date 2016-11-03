@@ -44,7 +44,14 @@ export default {
   methods: {
     searchRepo: function() {
       if (this.isLoading) return
-      this.search(`repositories?q=${this.query}+in:name`)
+      this.search('repositories', this.searchOptions())
+    },
+    searchOptions: function() {
+      return {
+        params: {
+          q: this.query + ' in:name'
+        }
+      }
     }
   }
 }

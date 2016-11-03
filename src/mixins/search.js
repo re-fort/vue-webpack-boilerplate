@@ -1,5 +1,5 @@
 // Mixin for pagination
-import Settings from 'settings'
+import {Xhr} from 'base/vue-resource'
 export default {
   computed: {
     dipsItems: function() {
@@ -13,9 +13,9 @@ export default {
       this.items = []
       this.isLoading = true
     },
-    search: function(url) {
+    search: function(url, options = {}) {
       this.searchStart()
-      this.$http.get(Settings.Api.root + url).then(this.success, this.error)
+      Xhr.get(url, options, this.success, this.error)
     },
     success: function(response) {
       this.items = response.data.items

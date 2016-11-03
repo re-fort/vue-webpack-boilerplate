@@ -43,7 +43,14 @@ export default {
   methods: {
     searchUser: function() {
       if (this.isLoading) return
-      this.search(`users?q=${this.query}`)
+      this.search('users', this.searchOptions())
+    },
+    searchOptions: function() {
+      return {
+        params: {
+          q: this.query
+        }
+      }
     }
   }
 }
