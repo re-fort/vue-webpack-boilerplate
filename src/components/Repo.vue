@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   section.section
     .columns
       .column.is-4.is-offset-4

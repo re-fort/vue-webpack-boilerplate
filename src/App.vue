@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   #app
     section.hero.is-primary
       .hero-head

@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   .columns(v-show="pageCount")
     .column.is-6.is-offset-3
       nav.pagination

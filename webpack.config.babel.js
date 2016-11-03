@@ -41,8 +41,8 @@ module.exports = {
         loader: 'json'
       },
       {
-        test: /\.jade$/,
-        loader: 'jade'
+        test: /\.pug$/,
+        loader: 'pug'
       },
       {
         test: /\.(sass|scss)$/,
