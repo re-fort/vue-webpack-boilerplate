@@ -25,4 +25,4 @@ npm run dev
 - `npm run build`
 
 ## Demo
-http://re-fort.net/vue-webpack-boilerplate/
+https://re-fort.net/vue-webpack-boilerplate/
