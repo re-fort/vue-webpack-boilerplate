@@ -83,7 +83,7 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#eval'
-  module.exports.output.publicPath = `/${_dist}/`
+  module.exports.output.publicPath = `/${_project}/${_dist}/`
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
