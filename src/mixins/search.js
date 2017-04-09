@@ -1,5 +1,5 @@
 // Mixin for search
-import {Xhr} from 'base/vue-resource'
+import {Xhr} from 'base/axios'
 export default {
   methods: {
     searchStart: function() {
@@ -16,13 +16,13 @@ export default {
       this.page = 1
       this.searchEnd()
     },
-    error: function(response) {
-      switch(response.status) {
+    error: function(error) {
+      switch(error.response.status) {
         case 403:
           this.message = 'API rate limit exceeded'
           break
         default:
-          this.message = response.statusText
+          this.message = error.response.data.message
       }
       this.searchEnd()
     },

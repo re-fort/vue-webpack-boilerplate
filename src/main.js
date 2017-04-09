@@ -1,14 +1,17 @@
 // App Setting
 import 'filters.js'
+import axios from 'axios'
 import routes from 'routes.js'
+import VueRouter from 'vue-router'
+
 import App from 'App.vue'
 
 // Scss
 import 'stylesheets/bulma.scss'
 import 'stylesheets/app.scss'
 
-// Vue Resource
-Vue.use(VueResource)
+// axios
+Vue.prototype.$http = axios
 
 // Vue Routing
 Vue.use(VueRouter)
