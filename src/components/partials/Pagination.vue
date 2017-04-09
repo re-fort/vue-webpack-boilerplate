@@ -1,12 +1,12 @@
 <template lang="pug">
   .columns(v-show="pageCount")
     .column.is-6.is-offset-3
-      nav.pagination
-        a.button(:class="isStartPage ? 'is-disabled' : ''" @click="showPrev") &#60;&#60; Prev
-        a.button(:class="isEndPage ? 'is-disabled' : ''" @click="showNext") Next &#62;&#62;
-        ul
+      nav.pagination.is-centered
+        a.button.pagination-previous(:class="isStartPage ? 'is-disabled' : ''" @click="showPrev") &#60;&#60; Prev
+        a.button.pagination-next(:class="isEndPage ? 'is-disabled' : ''" @click="showNext") Next &#62;&#62;
+        ul.pagination-list
           li(v-for="i in pageCount")
-            a.button(:class="i === page ? 'is-primary' : ''" @click="showPage(i)") {{ i }}
+            a.button.pagination-link(:class="i === page ? 'is-primary' : ''" @click="showPage(i)") {{ i }}
 </template>
 
 <script>
@@ -39,13 +39,13 @@ export default {
   },
   methods: {
     showPrev: function() {
-      this.$emit('page', --this.page)
+      this.$emit('page', this.page - 1)
     },
     showNext: function() {
-      this.$emit('page', ++this.page)
+      this.$emit('page', this.page + 1)
     },
     showPage: function(index) {
-      this.$emit('page', this.page = index)
+      this.$emit('page', index)
     }
   }
 }

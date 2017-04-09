@@ -1,9 +1,10 @@
 <template lang="pug">
   section.section
     .columns
-      .column.is-4.is-offset-4
-        p.control.has-addons
-          input.input.is-expanded(v-model="query" type="text" placeholder="Find a repo" @keyup.enter="searchRepo")
+      .column.is-4.is-offset-4.field.has-addons
+        p.control.is-expanded
+          input.input(v-model="query" type="text" placeholder="Find a repo" @keyup.enter="searchRepo")
+        p.control
           a.button.is-primary(:class="isLoading ? 'is-loading' : ''" @click="searchRepo") Search
     template(v-if="message")
       .columns

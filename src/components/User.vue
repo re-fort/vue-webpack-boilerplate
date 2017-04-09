@@ -1,9 +1,10 @@
 <template lang="pug">
   section.section
     .columns
-      .column.is-4.is-offset-4
-        p.control.has-addons
-          input.input.is-expanded(v-model="query" type="text" placeholder="Find a user" @keyup.enter="searchUser")
+      .column.is-4.is-offset-4.field.has-addons
+        p.control.is-expanded
+          input.input(v-model="query" type="text" placeholder="Find a user" @keyup.enter="searchUser")
+        p.control
           a.button.is-primary(:class="isLoading ? 'is-loading' : ''" @click="searchUser") Search
     template(v-if="message")
       .columns
