@@ -11,66 +11,64 @@ const _static = 'static'
 module.exports = {
   entry: {
     app: `./${_src}/main.js`,
-    vendor: ['vue', 'vue-resource', 'vue-router', 'bulma', 'font-awesome/scss/font-awesome']
+    vendor: ['vue', 'axios', 'vue-router', 'bulma', 'font-awesome/scss/font-awesome']
   },
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
     publicPath: `/${_dist}/`,
     filename: 'js/[name].js'
   },
-  resolveLoader: {
-    root: [path.join(__dirname, 'node_modules')]
-  },
   resolve: {
-    root: path.join(__dirname, `${_src}`),
+    modules: [
+      path.resolve(__dirname, 'src'),
+      path.join(__dirname, 'node_modules')
+    ],
     alias: {
-      'vue': 'vue/dist/vue.js'
+      'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['', '.js' , '.scss' , '.vue']
+    extensions: ['.js' , '.scss' , '.vue']
   },
   module: {
     loaders: [
       {
         test: /\.vue$/,
-        loader: 'vue'
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/
       },
       {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       },
       {
         test: /\.pug$/,
-        loader: 'pug'
+        loader: 'pug-loader'
       },
       {
         test: /\.(sass|scss)$/,
-        loader: extractTextPlugin.extract('css!sass')
+        loader: extractTextPlugin.extract('css-loader?minimize!sass-loader?minimize')
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,
-        loader: `file?name=${_static}/[name].[ext]`
+        loader: `file-loader?name=${_static}/[name].[ext]`
       },
       {
         test: /\.(svg|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: `file?name=${_static}/[name].[ext]`
+        loader: `file-loader?name=${_static}/[name].[ext]`
       },
       {
         test: /\.woff(\d+)?(\?v=\d+\.\d+\.\d+)?$/,
-        loader: `file?name=${_static}/[name].[ext]`
+        loader: `file-loader?name=${_static}/[name].[ext]`
       }
     ]
   },
   plugins: [
       new extractTextPlugin(`${_stylesheets}/[name].css`),
       new webpack.ProvidePlugin({
-        Vue: 'vue',
-        VueResource: 'vue-resource',
-        VueRouter: 'vue-router'
+        Vue: ['vue', 'default']
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
@@ -85,7 +83,7 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#eval'
-  module.exports.output.publicPath = `/${_project}/${_dist}/`
+  module.exports.output.publicPath = `/${_dist}/`
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -98,6 +96,6 @@ if (process.env.NODE_ENV === 'production') {
         warnings: false
       }
     }),
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin()
   ])
 }
