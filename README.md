@@ -1,13 +1,13 @@
 vue-webpack-boilerplate
 ======================
 
-A Webpack boilerplate with vue-loader,vue-resource and vue-router
+A Webpack boilerplate with vue-loader,axios and vue-router
 
 ## What's included
 - Vue(2.x.x)
-- webpack
+- webpack(2.x.x)
 - vue-loader
-- vue-resource
+- axios
 - vue-router
 - Bulma
 - Font Awesome
