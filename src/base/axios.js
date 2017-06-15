@@ -1,4 +1,4 @@
-// Vue-resource handling
+// axios handling
 import Settings from 'settings'
 export class Xhr {
   static get(url, params = {}, success = null, failure = null) {
