@@ -20,6 +20,7 @@ jobs:
           # Fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      # Install dependencies
       - run: 
           name: Install
           command: yarn install
@@ -28,7 +29,12 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
+      
+      # Check out gh-pages
+      - run:
+          name: Check out
+          command: git checkout --orphan gh-pages
+
       # Build
       - run: 
           name: Build
@@ -38,9 +44,11 @@ jobs:
       - run: 
           name: Deploy
           command: |
-            git branch -D gh-pages
-            git checkout -b gh-pages
-            git add dist/
+            git reset
+            git add .circleci/
+            git add -f dist/
             git add index.html
-            git commit -m "deploy"
+            git config --global user.name "Saori"
+            git config --global user.email "Saori@users.noreply.github.com"
+            git commit -m ":green_heart: CI build"
             git push -f origin gh-pages
