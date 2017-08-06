@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:7.10
+
+    working_directory: ~/tmp
+
+    branches:
+      only:
+        - master
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # Fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: 
+          name: Install
+          command: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+        
+      # Build
+      - run: 
+          name: Build
+          command: yarn run build
+
+      # Deploy
+      - run: 
+          name: Deploy
+          command: |
+            git branch -D gh-pages
+            git checkout -b gh-pages
+            git add dist/
+            git add index.html
+            git commit -m "deploy"
+            git push -f origin gh-pages
