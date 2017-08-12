@@ -6,9 +6,9 @@ import VueRouter from 'vue-router'
 
 import App from 'App.vue'
 
-// Scss
-import 'stylesheets/bulma.scss'
-import 'stylesheets/app.scss'
+// Sass
+import 'stylesheets/bulma'
+import 'stylesheets/app'
 
 // axios
 Vue.prototype.$http = axios
