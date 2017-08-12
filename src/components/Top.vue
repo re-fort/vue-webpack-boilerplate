@@ -11,21 +11,21 @@
 <script>
 export default {
   name: 'Top',
-  data () {
+  data() {
     return {
       buttons: [
         {
           text: 'Search Users',
           icon: 'fa-user',
-          url: '/search/user'
+          url: '/search/user',
         },
         {
           text: 'Search Repos',
           icon: 'fa-book',
-          url: '/search/repo'
+          url: '/search/repo',
         }
       ]
     }
-  }
+  },
 }
 </script>

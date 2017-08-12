@@ -2,21 +2,21 @@
 import {Xhr} from 'base/axios'
 export default {
   methods: {
-    searchStart: function() {
+    searchStart() {
       this.message = ''
       this.items = []
       this.isLoading = true
     },
-    search: function(url, options = {}) {
+    search(url, options = {}) {
       this.searchStart()
       Xhr.get(url, options, this.success, this.error)
     },
-    success: function(response) {
+    success(response) {
       this.items = response.data.items
       this.page = 1
       this.searchEnd()
     },
-    error: function(error) {
+    error(error) {
       switch(error.response.status) {
         case 403:
           this.message = 'API rate limit exceeded'
@@ -26,8 +26,8 @@ export default {
       }
       this.searchEnd()
     },
-    searchEnd: function() {
+    searchEnd() {
       this.isLoading = false
-    }
-  }
+    },
+  },
 }

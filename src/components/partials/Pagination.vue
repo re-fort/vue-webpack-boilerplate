@@ -27,28 +27,28 @@ export default {
     }
   },
   computed: {
-    isStartPage: function(){
+    isStartPage() {
       return this.page === 1
     },
-    isEndPage: function(){
+    isEndPage() {
       return this.page * this.dispItemSize >= this.items.length
     },
-    pageCount: function() {
+    pageCount() {
       return Math.ceil(this.items.length / this.dispItemSize)
-    }
+    },
   },
   methods: {
-    showPrev: function() {
+    showPrev() {
       if (this.isStartPage) return
       this.$emit('page', this.page - 1)
     },
-    showNext: function() {
+    showNext() {
       if (this.isEndPage) return
       this.$emit('page', this.page + 1)
     },
-    showPage: function(index) {
+    showPage(index) {
       this.$emit('page', index)
-    }
-  }
+    },
+  },
 }
 </script>

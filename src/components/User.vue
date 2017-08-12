@@ -32,28 +32,28 @@ export default {
   components: {
     pagination
   },
-  mixins: [mixinSearch, mixinPage],
-  data () {
+  mixins: [ mixinSearch, mixinPage ],
+  data() {
     return {
       query: '',
       message: '',
       items: [],
       dispItemSize: 8,
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
-    searchUser: function() {
+    searchUser() {
       if (this.isLoading) return
       this.search('users', this.searchOptions())
     },
-    searchOptions: function() {
+    searchOptions() {
       return {
         params: {
           q: this.query
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>

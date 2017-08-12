@@ -1,10 +1,10 @@
 // App Setting
-import 'filters.js'
+import 'filters'
 import axios from 'axios'
-import routes from 'routes.js'
+import routes from 'routes'
 import VueRouter from 'vue-router'
 
-import App from 'App.vue'
+import App from 'App'
 
 // Sass
 import 'stylesheets/bulma'

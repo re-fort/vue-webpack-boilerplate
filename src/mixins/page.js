@@ -1,19 +1,19 @@
 // Mixin for pagination
 export default {
-  data () {
+  data() {
     return {
       page: 1
     }
   },
   computed: {
-    dispItems: function() {
+    dispItems() {
       let startPage = (this.page - 1) * this.dispItemSize
       return this.items.slice(startPage, startPage + this.dispItemSize)
-    }
+    },
   },
   methods: {
-    setPage: function(page) {
+    setPage(page) {
       this.page = page
-    }
-  }
+    },
+  },
 }

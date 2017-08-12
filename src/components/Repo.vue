@@ -33,28 +33,28 @@ export default {
   components: {
     pagination
   },
-  mixins: [mixinSearch, mixinPage],
-  data () {
+  mixins: [ mixinSearch, mixinPage ],
+  data() {
     return {
       query: '',
       message: '',
       items: [],
       dispItemSize: 5,
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
-    searchRepo: function() {
+    searchRepo() {
       if (this.isLoading) return
       this.search('repositories', this.searchOptions())
     },
-    searchOptions: function() {
+    searchOptions() {
       return {
         params: {
-          q: this.query + ' in:name'
+          q: `${this.query} in:name`
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
