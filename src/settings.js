@@ -1,6 +1,6 @@
 // Setting
 export default {
   Api: {
-    root: 'https://api.github.com/search/'
+    baseUrl: process.env.NODE_ENV !== 'production' ? 'http://localhost:7070' : 'https://vue-webpack-boilerplate-api.herokuapp.com',
   },
 }

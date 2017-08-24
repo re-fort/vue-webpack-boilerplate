@@ -46,7 +46,7 @@ export default {
   methods: {
     searchRepo() {
       if (this.isLoading) return
-      this.search('repositories', this.searchOptions())
+      this.search('/search/repositories', this.searchOptions())
     },
     searchOptions() {
       return {

@@ -11,7 +11,7 @@ const _static = 'static'
 module.exports = {
   entry: {
     app: `./${_src}/main.js`,
-    vendor: ['vue', 'axios', 'vue-router', 'bulma', 'font-awesome/scss/font-awesome']
+    vendor: ['vue', 'axios', 'vue-router', 'vuex', 'vuex-router-sync', 'vuex-persistedstate', 'js-cookie', 'bulma', 'font-awesome/scss/font-awesome']
   },
   output: {
     path: path.resolve(__dirname, `./${_dist}`),

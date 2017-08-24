@@ -1,11 +1,19 @@
 <template lang="pug">
   section.section
     .columns
-      .column.is-4.is-offset-4.field.has-addons
-        p.control.is-expanded
-          input.input(v-model="query" type="text" placeholder="Find a user" @keyup.enter="searchUser")
-        p.control
-          a.button.is-primary(:class="isLoading ? 'is-loading' : ''" @click="searchUser") Search
+      .column.is-4.is-offset-4
+        .tabs.is-centered.is-toggle
+          ul
+            li(:class="{ 'is-active' : activeTab === 'followers' }")
+              a(@click="fetchFollowers")
+                span.icon.is-small
+                  i.fa.fa-users
+                span followers
+            li(:class="{ 'is-active' : activeTab === 'following' }")
+              a(@click="fetchFollowing")
+                span.icon.is-small
+                  i.fa.fa-users
+                span following
     template(v-if="message")
       .columns
         .column.is-6.is-offset-3
@@ -27,8 +35,9 @@
 import mixinSearch from 'mixins/search'
 import mixinPage from 'mixins/page'
 import pagination from 'components/partials/Pagination'
+
 export default {
-  name: 'User',
+  name: 'MyPage',
   components: {
     pagination
   },
@@ -38,21 +47,29 @@ export default {
       query: '',
       message: '',
       items: [],
-      dispItemSize: 8,
+      dispItemSize: 5,
       isLoading: false,
+      activeTab: 'followers',
     }
   },
+  mounted() {
+    this.fetchFollowers()
+  },
   methods: {
-    searchUser() {
+    fetchFollowers() {
       if (this.isLoading) return
-      this.search('/search/users', this.searchOptions())
+      this.activeTab = 'followers'
+      this.search('/user/followers')
     },
-    searchOptions() {
-      return {
-        params: {
-          q: this.query
-        }
-      }
+    fetchFollowing() {
+      if (this.isLoading) return
+      this.activeTab = 'following'
+      this.search('/user/following')
+    },
+    success(response) {
+      this.items = response.data
+      this.page = 1
+      this.searchEnd()
     },
   },
 }
