@@ -15,14 +15,14 @@ export default {
     return {
       buttons: [
         {
-          text: 'Search',
-          icon: 'fa-search',
-          url: '/search',
+          text: 'Search Users',
+          icon: 'fa-user',
+          url: '/search/user',
         },
         {
-          text: 'My Page',
-          icon: 'fa-user',
-          url: '/user',
+          text: 'Search Repos',
+          icon: 'fa-book',
+          url: '/search/repo',
         }
       ]
     }

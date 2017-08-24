@@ -1,5 +1,6 @@
 // Mixin for search
-import {Xhr} from 'base/axios'
+import { Xhr } from 'lib/axios'
+
 export default {
   methods: {
     searchStart() {
@@ -9,7 +10,11 @@ export default {
     },
     search(url, options = {}) {
       this.searchStart()
-      Xhr.get(url, options, this.success, this.error)
+      if (this.$store.state.Auth.token) {
+        Xhr.getWithToken(url, options, this.$store.state.Auth.token, this.success, this.error)
+      } else {
+        Xhr.getWithoutToken(url, options, this.success, this.error)
+      }
     },
     success(response) {
       this.items = response.data.items
@@ -18,6 +23,9 @@ export default {
     },
     error(error) {
       switch(error.response.status) {
+        case 401:
+          this.message = 'Required (re)authentication'
+          break
         case 403:
           this.message = 'API rate limit exceeded'
           break
