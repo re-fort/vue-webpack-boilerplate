@@ -1,6 +1,6 @@
 {
   "name": "vue-webpack-boilerplate",
-  "description": "A Webpack boilerplate with vue-loader,vue-resource and vue-router",
+  "description": "A webpack boilerplate with vue-loader,axios, vue-router and vuex",
   "author": "re-fort",
   "license": "MIT",
   "repository": {
