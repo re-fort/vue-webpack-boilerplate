@@ -22,6 +22,6 @@ new Vue({
   store,
   template: '<App ref="app" />',
   components: {
-    'App': App
+    'App': App,
   },
 }).$mount('#app')

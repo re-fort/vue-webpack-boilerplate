@@ -66,13 +66,13 @@ module.exports = {
     ]
   },
   plugins: [
-      new extractTextPlugin(`${_stylesheets}/[name].css`),
-      new webpack.ProvidePlugin({
-        Vue: ['vue', 'default']
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor'
-      })
+    new extractTextPlugin(`${_stylesheets}/[name].css`),
+    new webpack.ProvidePlugin({
+      Vue: ['vue', 'default']
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    })
   ],
   devServer: {
     historyApiFallback: true,

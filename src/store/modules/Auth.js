@@ -20,6 +20,7 @@ const actions = {
       Xhr.getWithToken('/verify', {}, state.token, (response) => {
         resolve(response.data.valid)
       }, (error) => {
+        console.error(error)
         reject(false)
       })
     })
