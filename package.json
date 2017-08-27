@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "pre-build": "npm run clean && webpack --progress --hide-modules",
     "clean": "rimraf ./dist",
     "lint": "eslint src"
   },
