@@ -9,7 +9,7 @@
             .navbar-menu
               .navbar-end
                 .navbar-item
-                  a.navbar-item.button.is-primary.is-inverted.is-outlined(:href="isLoggedIn ? '/#/auth/#' : $store.state.authUrl")
+                  a.navbar-item.button.is-primary.is-inverted.is-outlined(:href="isLoggedIn ? './#/auth/#' : $store.state.authUrl")
                     span.icon
                       i.fa.fa-github
                     span {{ isLoggedIn ? 'log out' : 'log in' }}
