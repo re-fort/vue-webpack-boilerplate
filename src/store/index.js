@@ -19,6 +19,6 @@ export default new Vuex.Store({
       paths: ['Auth.token'],
       getState: (key) => Cookies.getJSON(key),
       setState: (key, state) => Cookies.set(key, state, { expires: 1, secure: process.env.NODE_ENV === 'production' }),
-    })
+    }),
   ],
 })
