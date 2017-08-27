@@ -4,16 +4,11 @@
       .column.is-4.is-offset-4
         .tabs.is-centered.is-toggle
           ul
-            li(:class="{ 'is-active' : activeTab === 'followers' }")
-              a(@click="fetchFollowers")
+            li(v-for="button in buttons", :class="{ 'is-active' : activeTab === button.name }")
+              a.button(:class="{ 'is-loading is-primary': isLoading && activeTab === button.name }", @click="fetch(button)")
                 span.icon.is-small
                   i.fa.fa-users
-                span followers
-            li(:class="{ 'is-active' : activeTab === 'following' }")
-              a(@click="fetchFollowing")
-                span.icon.is-small
-                  i.fa.fa-users
-                span following
+                span {{ button.name }}
     template(v-if="message")
       .columns
         .column.is-6.is-offset-3
@@ -44,7 +39,14 @@ export default {
   mixins: [ mixinSearch, mixinPage ],
   data() {
     return {
-      query: '',
+      buttons: [
+        {
+          name: 'followers',
+        },
+        {
+          name: 'following',
+        }
+      ],
       message: '',
       items: [],
       dispItemSize: 5,
@@ -56,13 +58,15 @@ export default {
     this.fetchFollowers()
   },
   methods: {
-    fetchFollowers() {
+    fetch(button) {
       if (this.isLoading) return
+      button.name === 'followers' ? this.fetchFollowers() : this.fetchFollowing()
+    },
+    fetchFollowers() {
       this.activeTab = 'followers'
       this.search('/user/followers')
     },
     fetchFollowing() {
-      if (this.isLoading) return
       this.activeTab = 'following'
       this.search('/user/following')
     },
