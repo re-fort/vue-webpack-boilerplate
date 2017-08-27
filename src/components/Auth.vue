@@ -6,7 +6,7 @@
           .message-header
             p Required authentication
           .message-body
-            a(:href="$store.state.authUrl") Sign in
+            a(:href="$store.state.authUrl") Log in
 </template>
 
 <script>
