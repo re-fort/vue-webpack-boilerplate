@@ -21,7 +21,7 @@ jobs:
           - v1-dependencies-
 
       # Install dependencies
-      - run: 
+      - run:
           name: Install
           command: yarn install
 
@@ -29,19 +29,19 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      
+
       # Check out gh-pages
       - run:
           name: Check out
           command: git checkout --orphan gh-pages
 
       # Build
-      - run: 
+      - run:
           name: Build
           command: yarn run build
 
       # Deploy
-      - run: 
+      - run:
           name: Deploy
           command: |
             git reset
@@ -49,6 +49,6 @@ jobs:
             git add -f dist/
             git add index.html
             git config --global user.name "Saori"
-            git config --global user.email "Saori@users.noreply.github.com"
+            git config --global user.email "30777982+Saori@users.noreply.github.com"
             git commit -m ":green_heart: CI build"
             git push -f origin gh-pages
