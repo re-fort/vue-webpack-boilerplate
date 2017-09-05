@@ -49,6 +49,6 @@ jobs:
             git add -f dist/
             git add index.html
             git config --global user.name "Saori"
-            git config --global user.email "30777982+Saori@users.noreply.github.com"
+            git config --global user.email "Saori@users.noreply.github.com"
             git commit -m ":green_heart: CI build"
             git push -f origin gh-pages
