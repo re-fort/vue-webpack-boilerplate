@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.5.0
 
     working_directory: ~/tmp
 
@@ -21,7 +21,7 @@ jobs:
           - v1-dependencies-
 
       # Install dependencies
-      - run: 
+      - run:
           name: Install
           command: yarn install
 
@@ -29,19 +29,24 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      
+
+      # Test
+      - run:
+          name: Test
+          command: yarn test
+
       # Check out gh-pages
       - run:
           name: Check out
           command: git checkout --orphan gh-pages
 
       # Build
-      - run: 
+      - run:
           name: Build
           command: yarn run build
 
       # Deploy
-      - run: 
+      - run:
           name: Deploy
           command: |
             git reset
