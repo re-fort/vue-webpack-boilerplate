@@ -2,8 +2,8 @@
   .columns(v-show="pageCount")
     .column.is-6.is-offset-3
       nav.pagination.is-centered
-        a.button.pagination-previous(:disabled="isStartPage ? true : false", @click="showPrev") &#60;&#60; Prev
-        a.button.pagination-next(:disabled="isEndPage ? true : false", @click="showNext") Next &#62;&#62;
+        a.button.pagination-previous(:disabled="isFirstPage ? true : false", @click="showPrev") &#60;&#60; Prev
+        a.button.pagination-next(:disabled="isLastPage ? true : false", @click="showNext") Next &#62;&#62;
         ul.pagination-list
           li(v-for="i in pageCount")
             a.button.pagination-link(:class="i === page ? 'is-primary' : ''", @click="showPage(i)") {{ i }}
@@ -27,10 +27,10 @@ export default {
     }
   },
   computed: {
-    isStartPage() {
+    isFirstPage() {
       return this.page === 1
     },
-    isEndPage() {
+    isLastPage() {
       return this.page * this.dispItemSize >= this.items.length
     },
     pageCount() {
@@ -39,11 +39,11 @@ export default {
   },
   methods: {
     showPrev() {
-      if (this.isStartPage) return
+      if (this.isFirstPage) return
       this.$emit('page', this.page - 1)
     },
     showNext() {
-      if (this.isEndPage) return
+      if (this.isLastPage) return
       this.$emit('page', this.page + 1)
     },
     showPage(index) {
