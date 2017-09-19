@@ -2,11 +2,11 @@
   .columns(v-show="pageCount")
     .column.is-6.is-offset-3
       nav.pagination.is-centered
-        a.button.pagination-previous(:disabled="isStartPage ? true : false" @click="showPrev") &#60;&#60; Prev
+        a.button.pagination-previous(:disabled="isStartPage ? true : false", @click="showPrev") &#60;&#60; Prev
         a.button.pagination-next(:disabled="isEndPage ? true : false", @click="showNext") Next &#62;&#62;
         ul.pagination-list
           li(v-for="i in pageCount")
-            a.button.pagination-link(:class="i === page ? 'is-primary' : ''" @click="showPage(i)") {{ i }}
+            a.button.pagination-link(:class="i === page ? 'is-primary' : ''", @click="showPage(i)") {{ i }}
 </template>
 
 <script>

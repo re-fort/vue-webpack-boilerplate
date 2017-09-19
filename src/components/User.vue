@@ -3,9 +3,9 @@
     .columns
       .column.is-4.is-offset-4.field.has-addons
         p.control.is-expanded
-          input.input(v-model="query" type="text" placeholder="Find a user" @keyup.enter="searchUser")
+          input.input(v-model="query" type="text" placeholder="Find a user", @keyup.enter="searchUser")
         p.control
-          a.button.is-primary(:class="isLoading ? 'is-loading' : ''" @click="searchUser") Search
+          a.button.is-primary(:class="isLoading ? 'is-loading' : ''", @click="searchUser") Search
     template(v-if="message")
       .columns
         .column.is-6.is-offset-3
