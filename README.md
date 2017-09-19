@@ -1,9 +1,12 @@
+[![CircleCI](https://circleci.com/gh/re-fort/vue-webpack-boilerplate.svg?style=shield)](https://circleci.com/gh/re-fort/vue-webpack-boilerplate)
+
 vue-webpack-boilerplate
 ======================
 
 A Webpack boilerplate with vue-loader,axios, vue-router and vuex
 
 ## What's included
+### develop
 - Vue(2.x.x)
 - webpack(3.x.x)
 - vue-loader
@@ -12,6 +15,12 @@ A Webpack boilerplate with vue-loader,axios, vue-router and vuex
 - vuex
 - Bulma
 - Font Awesome
+
+### test
+- avoriaz
+- Mocha
+- Karma
+- power-assert
 
 ## Setup
 ```
@@ -24,6 +33,7 @@ npm run dev # or yarn run dev
 ## Usage
 - `npm run dev`
 - `npm run build`
+- `npm test`
 
 ## Demo
 https://re-fort.net/vue-webpack-boilerplate/

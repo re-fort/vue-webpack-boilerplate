@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: circleci/node:8.5.0
 
     working_directory: ~/tmp
 
@@ -29,6 +29,11 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+
+      # Test
+      - run:
+          name: Test
+          command: yarn test
 
       # Check out gh-pages
       - run:

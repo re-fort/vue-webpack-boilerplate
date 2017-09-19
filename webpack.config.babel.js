@@ -4,6 +4,7 @@ const extractTextPlugin = require('extract-text-webpack-plugin')
 
 const _project = 'vue-webpack-boilerplate'
 const _src = 'src'
+const _test = 'tests'
 const _dist = 'dist'
 const _stylesheets = 'stylesheets'
 const _static = 'static'
@@ -11,7 +12,7 @@ const _static = 'static'
 module.exports = {
   entry: {
     app: `./${_src}/main.js`,
-    vendor: ['vue', 'axios', 'vue-router', 'vuex', 'vuex-router-sync', 'vuex-persistedstate', 'js-cookie', 'font-awesome/scss/font-awesome']
+    vendor: ['vue', 'axios', 'vue-router', 'vuex', 'vuex-router-sync', 'vuex-persistedstate', 'js-cookie', 'font-awesome/scss/font-awesome'],
   },
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
@@ -20,11 +21,13 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, _src),
       path.join(__dirname, 'node_modules')
     ],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      'src': path.resolve(__dirname, './src'),
+      'tests': path.resolve(__dirname, './tests'),
     },
     extensions: ['.js', '.sass', '.scss', '.vue']
   },
@@ -37,7 +40,18 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        include: [
+          path.resolve(__dirname, _src),
+          path.resolve(__dirname, _test),
+        ],
         exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        loader: 'webpack-espower-loader',
+        include: [
+          path.resolve(__dirname, _test),
+        ],
       },
       {
         test: /\.json$/,
@@ -70,15 +84,20 @@ module.exports = {
     new webpack.ProvidePlugin({
       Vue: ['vue', 'default']
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
-    })
   ],
   devServer: {
     historyApiFallback: true,
     noInfo: true
   },
   devtool: '#source-map'
+}
+
+if (process.env.NODE_ENV !== 'testing') {
+  module.exports.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    })
+  )
 }
 
 if (process.env.NODE_ENV === 'production') {
