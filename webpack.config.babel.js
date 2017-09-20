@@ -17,85 +17,85 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
     publicPath: `/${_dist}/`,
-    filename: 'js/[name].js'
+    filename: 'js/[name].js',
   },
   resolve: {
     modules: [
       path.resolve(__dirname, _src),
-      path.join(__dirname, 'node_modules')
+      path.join(__dirname, 'node_modules'),
     ],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       'src': path.resolve(__dirname, './src'),
       'tests': path.resolve(__dirname, './tests'),
     },
-    extensions: ['.js', '.sass', '.scss', '.vue']
+    extensions: ['.js', '.sass', '.scss', '.vue'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        use: ['vue-loader'],
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: ['babel-loader'],
         include: [
           path.resolve(__dirname, _src),
           path.resolve(__dirname, _test),
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
-        loader: 'webpack-espower-loader',
+        use: 'webpack-espower-loader',
         include: [
           path.resolve(__dirname, _test),
         ],
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        use: ['json-loader'],
       },
       {
         test: /\.pug$/,
-        loader: 'pug-loader'
+        use: ['pug-loader'],
       },
       {
         test: /\.(sass|scss)$/,
-        loader: extractTextPlugin.extract('css-loader?minimize!sass-loader?minimize')
+        use: extractTextPlugin.extract('css-loader?minimize!sass-loader?minimize'),
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,
-        loader: `file-loader?name=${_static}/[name].[ext]`
+        use: [`file-loader?name=${_static}/[name].[ext]`],
       },
       {
         test: /\.(svg|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: `file-loader?name=${_static}/[name].[ext]`
+        use: [`file-loader?name=${_static}/[name].[ext]`],
       },
       {
         test: /\.woff(\d+)?(\?v=\d+\.\d+\.\d+)?$/,
-        loader: `file-loader?name=${_static}/[name].[ext]`
-      }
-    ]
+        use: [`file-loader?name=${_static}/[name].[ext]`],
+      },
+    ],
   },
   plugins: [
     new extractTextPlugin(`${_stylesheets}/[name].css`),
     new webpack.ProvidePlugin({
-      Vue: ['vue', 'default']
+      Vue: ['vue', 'default'],
     }),
   ],
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
   },
-  devtool: '#source-map'
+  devtool: '#source-map',
 }
 
 if (process.env.NODE_ENV !== 'testing') {
   module.exports.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
+      name: 'vendor',
     })
   )
 }
@@ -107,14 +107,14 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
-      }
+        NODE_ENV: '"production"',
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
-      }
+        warnings: false,
+      },
     }),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
   ])
 }
