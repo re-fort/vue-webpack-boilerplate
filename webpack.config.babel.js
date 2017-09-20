@@ -17,19 +17,19 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
     publicPath: `/${_dist}/`,
-    filename: 'js/[name].js'
+    filename: 'js/[name].js',
   },
   resolve: {
     modules: [
       path.resolve(__dirname, _src),
-      path.join(__dirname, 'node_modules')
+      path.join(__dirname, 'node_modules'),
     ],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       'src': path.resolve(__dirname, './src'),
       'tests': path.resolve(__dirname, './tests'),
     },
-    extensions: ['.js', '.sass', '.scss', '.vue']
+    extensions: ['.js', '.sass', '.scss', '.vue'],
   },
   module: {
     loaders: [
@@ -44,7 +44,7 @@ module.exports = {
           path.resolve(__dirname, _src),
           path.resolve(__dirname, _test),
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
@@ -82,20 +82,20 @@ module.exports = {
   plugins: [
     new extractTextPlugin(`${_stylesheets}/[name].css`),
     new webpack.ProvidePlugin({
-      Vue: ['vue', 'default']
+      Vue: ['vue', 'default'],
     }),
   ],
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
   },
-  devtool: '#source-map'
+  devtool: '#source-map',
 }
 
 if (process.env.NODE_ENV !== 'testing') {
   module.exports.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'
+      name: 'vendor',
     })
   )
 }
@@ -107,14 +107,14 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
-      }
+        NODE_ENV: '"production"',
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
-      }
+        warnings: false,
+      },
     }),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
   ])
 }
