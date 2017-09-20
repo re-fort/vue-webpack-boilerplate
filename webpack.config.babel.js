@@ -32,14 +32,14 @@ module.exports = {
     extensions: ['.js', '.sass', '.scss', '.vue'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        use: ['vue-loader'],
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: ['babel-loader'],
         include: [
           path.resolve(__dirname, _src),
           path.resolve(__dirname, _test),
@@ -48,36 +48,36 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'webpack-espower-loader',
+        use: 'webpack-espower-loader',
         include: [
           path.resolve(__dirname, _test),
         ],
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        use: ['json-loader'],
       },
       {
         test: /\.pug$/,
-        loader: 'pug-loader'
+        use: ['pug-loader'],
       },
       {
         test: /\.(sass|scss)$/,
-        loader: extractTextPlugin.extract('css-loader?minimize!sass-loader?minimize')
+        use: extractTextPlugin.extract('css-loader?minimize!sass-loader?minimize'),
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,
-        loader: `file-loader?name=${_static}/[name].[ext]`
+        use: [`file-loader?name=${_static}/[name].[ext]`],
       },
       {
         test: /\.(svg|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: `file-loader?name=${_static}/[name].[ext]`
+        use: [`file-loader?name=${_static}/[name].[ext]`],
       },
       {
         test: /\.woff(\d+)?(\?v=\d+\.\d+\.\d+)?$/,
-        loader: `file-loader?name=${_static}/[name].[ext]`
-      }
-    ]
+        use: [`file-loader?name=${_static}/[name].[ext]`],
+      },
+    ],
   },
   plugins: [
     new extractTextPlugin(`${_stylesheets}/[name].css`),
