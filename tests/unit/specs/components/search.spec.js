@@ -1,4 +1,4 @@
-import { mount } from 'avoriaz'
+import { mount } from 'vue-test-utils'
 import assert from 'assert'
 import sinon from 'sinon'
 
@@ -9,20 +9,20 @@ describe('Search', function () {
 
   it('renders button(s)', function () {
     const wrapper = mount(Search)
-    const buttons = wrapper.data().buttons
-    const elements = wrapper.find('.button')
-    for (let [index, element] of elements.entries()) {
+    const buttons = wrapper.vm.buttons
+    const wrapperArray = wrapper.findAll('.button')
+    for (let [index, element] of wrapperArray.wrappers.entries()) {
       assert(element.text() === buttons[index].text)
     }
   })
 
   describe('push()', function () {
     it('adds "is-loading" class on clicked button', function () {
-      const wrapper = mount(Search, { globals: { $router } })
-      assert(wrapper.find('.is-loading').length === 0)
-      wrapper.find('.button')[0].trigger('click')
-      assert(wrapper.find('.is-loading').length === 1)
-      assert(wrapper.find('.button')[0].hasClass('is-loading'))
+      const wrapper = mount(Search, { intercept: { $router } })
+      assert(wrapper.findAll('.is-loading').length === 0)
+      wrapper.findAll('.button').at(0).trigger('click')
+      assert(wrapper.findAll('.is-loading').length === 1)
+      assert(wrapper.findAll('.button').at(0).hasClass('is-loading'))
     })
   })
 })

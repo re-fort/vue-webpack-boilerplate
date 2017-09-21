@@ -1,4 +1,4 @@
-import { mount } from 'avoriaz'
+import { mount } from 'vue-test-utils'
 import assert from 'assert'
 import sinon from 'sinon'
 
@@ -22,34 +22,34 @@ describe('User', function () {
 
   describe('searchUser()', function () {
     it('renders users when succeed', function () {
-      const wrapper = mount(User, { globals: { $store } })
+      const wrapper = mount(User, { intercept: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: users } }) })
-      wrapper.first('.button').trigger('click')
+      wrapper.find('.button').trigger('click')
       stub.restore()
-      assert(wrapper.find('.media').length === 2)
-      const image = wrapper.first('img')
-      const link = wrapper.first('.content a')
-      assert(image.getAttribute('src') === users[0].avatar_url)
-      assert(link.getAttribute('href') === users[0].html_url)
+      assert(wrapper.findAll('.media').length === 2)
+      const image = wrapper.find('img')
+      const link = wrapper.find('.content a')
+      assert(image.element.getAttribute('src') === users[0].avatar_url)
+      assert(link.element.getAttribute('href') === users[0].html_url)
       assert(link.text() === users[0].login)
     })
 
     it('renders 1 user when setting "dispItemSize" to 1', function () {
-      const wrapper = mount(User, { data: { dispItemSize: 1 }, globals: { $store } })
+      const wrapper = mount(User, { data: { dispItemSize: 1 }, intercept: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: users } }) })
-      wrapper.first('.button').trigger('click')
+      wrapper.find('.button').trigger('click')
       stub.restore()
-      assert(wrapper.find('.media').length === 1)
+      assert(wrapper.findAll('.media').length === 1)
     })
 
     it('renders a meesage when failed', function () {
-      const wrapper = mount(User, { globals: { $store } })
+      const wrapper = mount(User, { intercept: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.error({ response: { status: 401 } }) })
-      let message = wrapper.find('.message')
+      let message = wrapper.findAll('.message')
       assert(message.length === 0)
-      wrapper.first('.button').trigger('click')
+      wrapper.find('.button').trigger('click')
       stub.restore()
-      message = wrapper.find('.message')
+      message = wrapper.findAll('.message')
       assert(message.length === 1)
     })
   })

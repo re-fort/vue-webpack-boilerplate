@@ -1,4 +1,4 @@
-import { mount } from 'avoriaz'
+import { mount } from 'vue-test-utils'
 import assert from 'assert'
 
 import Pagination from 'src/components/partials/Pagination'
@@ -7,32 +7,32 @@ describe('Pagination', function () {
 
   it('renders "Prev" button with enabled when it is not first page', function () {
     const wrapper = mount(Pagination, { propsData: { page: 2, dispItemSize: 10, items: Array.from('p'.repeat(20)) } })
-    assert(!wrapper.first('.pagination-previous').hasAttribute('disabled'))
+    assert(!wrapper.find('.pagination-previous').hasAttribute('disabled', 'disabled'))
   })
 
   it('renders "Prev" button with disabled when it is first page', function () {
     const wrapper = mount(Pagination, { propsData: { page: 1, dispItemSize: 10, items: Array.from('p'.repeat(20)) } })
-    assert(wrapper.first('.pagination-previous').hasAttribute('disabled'))
+    assert(wrapper.find('.pagination-previous').hasAttribute('disabled', 'disabled'))
   })
 
   it('renders "Next" button with enabled when it is not last page', function () {
     const wrapper = mount(Pagination, { propsData: { page: 1, dispItemSize: 10, items: Array.from('p'.repeat(20)) } })
-    assert(!wrapper.first('.pagination-next').hasAttribute('disabled'))
+    assert(!wrapper.find('.pagination-next').hasAttribute('disabled', 'disabled'))
   })
 
   it('renders "Next" button with disabled when it is last page', function () {
     const wrapper = mount(Pagination, { propsData: { page: 2, dispItemSize: 10, items: Array.from('p'.repeat(20)) } })
-    assert(wrapper.first('.pagination-next').hasAttribute('disabled'))
+    assert(wrapper.find('.pagination-next').hasAttribute('disabled', 'disabled'))
   })
 
   it('renders page list', function () {
     const wrapper = mount(Pagination, { propsData: { page: 1, dispItemSize: 5, items: Array.from('p'.repeat(20)) } })
-    assert(wrapper.find('li').length === 4)
+    assert(wrapper.findAll('li').length === 4)
   })
 
   it('adds "is-primary" class at current page', function () {
     const wrapper = mount(Pagination, { propsData: { page: 3, dispItemSize: 5, items: Array.from('p'.repeat(20)) } })
-    assert(wrapper.find('li a')[2].hasClass('is-primary'))
+    assert(wrapper.findAll('li a').at(2).hasClass('is-primary'))
   })
 
   describe('isFirstPage()', function () {
