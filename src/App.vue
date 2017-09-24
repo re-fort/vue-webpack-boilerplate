@@ -6,9 +6,9 @@
           .navbar-brand
             router-link.nav-item(:to="'/'")
               span vue-webpack-boilerplate
-            .navbar-menu
+            .navbar-menu.is-active
               .navbar-end
-                .navbar-item
+                .navbar-item.github
                   a.navbar-item.button.is-primary.is-inverted.is-outlined(:href="isLoggedIn ? './#/auth/#' : $store.state.authUrl")
                     span.icon
                       i.fa.fa-github
