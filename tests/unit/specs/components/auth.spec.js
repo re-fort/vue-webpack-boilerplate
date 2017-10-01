@@ -1,4 +1,4 @@
-import { mount } from 'avoriaz'
+import { mount } from 'vue-test-utils'
 import assert from 'assert'
 import sinon from 'sinon'
 import Vuex from 'vuex'
@@ -22,21 +22,21 @@ describe('Auth', function () {
 
   describe('beforeRouteEnter()', function () {
     it('stores token when the url contains hash', async function () {
-      wrapper = mount(Auth, { store, globals: { $router } })
+      wrapper = mount(Auth, { store, mocks: { $router } })
       const token = await wrapper.vm.$options.beforeRouteEnter({ hash: '#test' }, '', next)
       assert(token === 'test')
       assert(wrapper.vm.$store.state.Auth.token === 'test')
     })
 
     it('returns true when authorized', async function () {
-      wrapper = mount(Auth, { store, globals: { $router } })
+      wrapper = mount(Auth, { store, mocks: { $router } })
       isAuthorized = true
       const result = await wrapper.vm.$options.beforeRouteEnter({}, '', next)
       assert(result)
     })
 
     it('returns false when not authorized', async function () {
-      wrapper = mount(Auth, { store, globals: { $router } })
+      wrapper = mount(Auth, { store, mocks: { $router } })
       isAuthorized = false
       const result = await wrapper.vm.$options.beforeRouteEnter({}, '', next)
       assert(!result)

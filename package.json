@@ -60,6 +60,7 @@
     "vue-loader": "^13.0.5",
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.4.4",
+    "vue-test-utils": "vue-test-utils@1.0.0-beta",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2",
     "webpack-espower-loader": "^1.0.2"

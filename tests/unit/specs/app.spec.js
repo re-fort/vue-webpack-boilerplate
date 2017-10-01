@@ -1,4 +1,4 @@
-import { mount } from 'avoriaz'
+import { mount } from 'vue-test-utils'
 import assert from 'assert'
 
 import App from 'src/App'
@@ -13,15 +13,15 @@ describe('App', function () {
 
   it('renders "log in" when not loginned', function () {
     const $store = { state: { Auth: { token: '', authUrl: '' } } }
-    const wrapper = mount(App, { globals: { $store } })
-    const element = wrapper.first('.navbar-item.button.is-primary.is-inverted.is-outlined')
+    const wrapper = mount(App, { mocks: { $store } })
+    const element = wrapper.find('.navbar-item.button.is-primary.is-inverted.is-outlined')
     assert(element.text() === 'log in')
   })
 
   it('renders "log out" when loginned', function () {
     const $store = { state: { Auth: { token: 'test', authUrl: '' } } }
-    const wrapper = mount(App, { globals: { $store } })
-    const element = wrapper.first('.navbar-item.button.is-primary.is-inverted.is-outlined')
+    const wrapper = mount(App, { mocks: { $store } })
+    const element = wrapper.find('.navbar-item.button.is-primary.is-inverted.is-outlined')
     assert(element.text() === 'log out')
   })
 })
