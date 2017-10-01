@@ -22,7 +22,7 @@ describe('User', function () {
 
   describe('searchUser()', function () {
     it('renders users when succeed', function () {
-      const wrapper = mount(User, { intercept: { $store } })
+      const wrapper = mount(User, { mocks: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: users } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -35,7 +35,7 @@ describe('User', function () {
     })
 
     it('renders 1 user when setting "dispItemSize" to 1', function () {
-      const wrapper = mount(User, { data: { dispItemSize: 1 }, intercept: { $store } })
+      const wrapper = mount(User, { data: { dispItemSize: 1 }, mocks: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: users } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -43,7 +43,7 @@ describe('User', function () {
     })
 
     it('renders a meesage when failed', function () {
-      const wrapper = mount(User, { intercept: { $store } })
+      const wrapper = mount(User, { mocks: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.error({ response: { status: 401 } }) })
       let message = wrapper.findAll('.message')
       assert(message.length === 0)

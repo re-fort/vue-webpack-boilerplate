@@ -18,7 +18,7 @@ describe('Top', function () {
 
   describe('push()', function () {
     it('adds "is-loading" class on clicked button', function () {
-      const wrapper = mount(Top, { intercept: { $router } })
+      const wrapper = mount(Top, { mocks: { $router } })
       assert(wrapper.findAll('.is-loading').length === 0)
       wrapper.findAll('.button').at(0).trigger('click')
       assert(wrapper.findAll('.is-loading').length === 1)

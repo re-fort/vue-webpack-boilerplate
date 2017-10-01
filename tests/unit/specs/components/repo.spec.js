@@ -24,7 +24,7 @@ describe('Repo', function () {
 
   describe('searchRepo()', function () {
     it('renders repos when succeed', function () {
-      const wrapper = mount(Repo, { intercept: { $store } })
+      const wrapper = mount(Repo, { mocks: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: repos } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -39,7 +39,7 @@ describe('Repo', function () {
     })
 
     it('renders 1 repo when setting "dispItemSize" to 1', function () {
-      const wrapper = mount(Repo, { data: { dispItemSize: 1 }, intercept: { $store } })
+      const wrapper = mount(Repo, { data: { dispItemSize: 1 }, mocks: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: repos } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -47,7 +47,7 @@ describe('Repo', function () {
     })
 
     it('renders a meesage when failed', function () {
-      const wrapper = mount(Repo, { intercept: { $store } })
+      const wrapper = mount(Repo, { mocks: { $store } })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.error({ response: { status: 403 } }) })
       let message = wrapper.findAll('.message')
       assert(message.length === 0)
