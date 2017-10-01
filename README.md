@@ -17,7 +17,7 @@ A Webpack boilerplate with vue-loader,axios, vue-router and vuex
 - Font Awesome
 
 ### test
-- avoriaz
+- vue-test-utils
 - Mocha
 - Karma
 - power-assert
