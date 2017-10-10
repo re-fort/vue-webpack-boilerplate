@@ -1,13 +1,18 @@
 const path = require('path')
 const webpack = require('webpack')
+const htmlWebpackPlugin = require('html-webpack-plugin')
 const extractTextPlugin = require('extract-text-webpack-plugin')
 
-const _project = 'vue-webpack-boilerplate'
 const _src = 'src'
 const _test = 'tests'
 const _dist = 'dist'
 const _stylesheets = 'stylesheets'
 const _static = 'static'
+const _publicPath = getPublicPath()
+
+function isTesting () { return process.env.NODE_ENV === 'testing' }
+function isProduction () { return process.env.NODE_ENV === 'production' }
+function getPublicPath () { return '/' }
 
 module.exports = {
   entry: {
@@ -16,8 +21,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
-    publicPath: `/${_dist}/`,
-    filename: 'js/[name].js',
+    filename: isProduction() ? 'js/[name].[hash].js' : 'js/[name].js',
   },
   resolve: {
     modules: [
@@ -67,32 +71,52 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,
-        use: [`file-loader?name=${_static}/[name].[ext]`],
+        loader: 'file-loader',
+        options: {
+          name: isProduction() ? `${_static}/[name].[hash].[ext]` : `${_static}/[name].[ext]`,
+          publicPath: _publicPath,
+        },
       },
       {
         test: /\.(svg|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [`file-loader?name=${_static}/[name].[ext]`],
+        loader: 'file-loader',
+        options: {
+          name: isProduction() ? `${_static}/[name].[hash].[ext]` : `${_static}/[name].[ext]`,
+          publicPath: _publicPath,
+        },
       },
       {
         test: /\.woff(\d+)?(\?v=\d+\.\d+\.\d+)?$/,
-        use: [`file-loader?name=${_static}/[name].[ext]`],
+        loader: 'file-loader',
+        options: {
+          name: isProduction() ? `${_static}/[name].[hash].[ext]` : `${_static}/[name].[ext]`,
+          publicPath: _publicPath,
+        },
       },
     ],
   },
   plugins: [
-    new extractTextPlugin(`${_stylesheets}/[name].css`),
+    new extractTextPlugin({
+      filename: isProduction() ? `${_stylesheets}/[name].[contenthash].css` : `${_stylesheets}/[name].css`,
+    }),
     new webpack.ProvidePlugin({
       Vue: ['vue', 'default'],
     }),
+    new htmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true,
+    }),
   ],
   devServer: {
+    contentBase: path.join(__dirname, _dist),
     historyApiFallback: true,
     noInfo: true,
   },
   devtool: '#source-map',
 }
 
-if (process.env.NODE_ENV !== 'testing') {
+if (!isTesting()) {
   module.exports.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -100,10 +124,9 @@ if (process.env.NODE_ENV !== 'testing') {
   )
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction()) {
   module.exports.devtool = '#eval'
-  module.exports.output.publicPath = `/${_project}/${_dist}/`
-  // http://vue-loader.vuejs.org/en/workflow/production.html
+  // https://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
