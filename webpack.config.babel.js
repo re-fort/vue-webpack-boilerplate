@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const extractTextPlugin = require('extract-text-webpack-plugin')
 
+const _project = 'vue-webpack-boilerplate'
 const _src = 'src'
 const _test = 'tests'
 const _dist = 'dist'
@@ -12,7 +13,7 @@ const _publicPath = getPublicPath()
 
 function isTesting () { return process.env.NODE_ENV === 'testing' }
 function isProduction () { return process.env.NODE_ENV === 'production' }
-function getPublicPath () { return '/' }
+function getPublicPath () { return isProduction() ? `/${_project}/` : '/' }
 
 module.exports = {
   entry: {
