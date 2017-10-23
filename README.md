@@ -22,6 +22,16 @@ A Webpack boilerplate with vue-loader, axios, vue-router and vuex
 - Karma
 - power-assert
 
+## Features
+- Practical demo (with auth example)
+- Ready to use Vue plugins (vue-router, Vuex)
+- Use of webpack and vue-loader with Hot Module Replacement
+- Unit Testing (with Karma + Mocha + vue-test-utils)
+- Add hash to filename when production build (avoiding cache problems)
+- Inject built files (with html-webpack-plugin)
+- Handy NPM scripts
+- CI (with Circle CI)
+
 ## Setup
 ```
 git clone https://github.com/re-fort/vue-webpack-boilerplate
