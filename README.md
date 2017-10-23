@@ -3,7 +3,7 @@
 vue-webpack-boilerplate
 ======================
 
-A Webpack boilerplate with vue-loader,axios, vue-router and vuex
+A Webpack boilerplate with vue-loader, axios, vue-router and vuex
 
 ## What's included
 ### develop
@@ -12,7 +12,7 @@ A Webpack boilerplate with vue-loader,axios, vue-router and vuex
 - vue-loader
 - axios
 - vue-router
-- vuex
+- Vuex
 - Bulma
 - Font Awesome
 
