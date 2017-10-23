@@ -28,6 +28,9 @@ git clone https://github.com/re-fort/vue-webpack-boilerplate
 cd vue-webpack-boilerplate
 npm i # or yarn install
 npm run dev # or yarn run dev
+
+# You also need to set up vue-webpack-boilerplate-api, if you run this boilerplate at local
+# See: https://github.com/re-fort/vue-webpack-boilerplate-api
 ```
 
 ## Usage
