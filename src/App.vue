@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  import { Xhr } from 'lib/axios'
   export default {
     name: 'App',
     computed: {
@@ -29,5 +30,9 @@
         return this.$store.state.Auth.token !== ''
       },
     },
+    mounted() {
+      // it takes a little time to start app in case of heroku
+      Xhr.getWithoutToken('/ping')
+    }
   }
 </script>

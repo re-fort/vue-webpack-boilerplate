@@ -11,6 +11,9 @@ describe('App', function () {
   Vue.component(routerView.name, routerView)
   Vue.component(routerLink.name, routerLink)
 
+  //delete mounted hook, because it contains methods to need a stub
+  delete App.mounted
+
   it('renders "log in" when not loginned', function () {
     const $store = { state: { Auth: { token: '', authUrl: '' } } }
     const wrapper = mount(App, { mocks: { $store } })
