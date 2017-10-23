@@ -3,7 +3,7 @@
 vue-webpack-boilerplate
 ======================
 
-A Webpack boilerplate with vue-loader,axios, vue-router and vuex
+A Webpack boilerplate with vue-loader, axios, vue-router and vuex
 
 ## What's included
 ### develop
@@ -12,7 +12,7 @@ A Webpack boilerplate with vue-loader,axios, vue-router and vuex
 - vue-loader
 - axios
 - vue-router
-- vuex
+- Vuex
 - Bulma
 - Font Awesome
 
@@ -22,12 +22,25 @@ A Webpack boilerplate with vue-loader,axios, vue-router and vuex
 - Karma
 - power-assert
 
+## Features
+- Practical demo (with auth example)
+- Ready to use Vue plugins (vue-router, Vuex)
+- Use of webpack and vue-loader with Hot Module Replacement
+- Unit Testing (with Karma + Mocha + vue-test-utils)
+- Add hash to filename when production build (avoiding cache problems)
+- Inject built files (with html-webpack-plugin)
+- Handy NPM scripts
+- CI (with Circle CI)
+
 ## Setup
 ```
 git clone https://github.com/re-fort/vue-webpack-boilerplate
 cd vue-webpack-boilerplate
 npm i # or yarn install
 npm run dev # or yarn run dev
+
+# You also need to set up vue-webpack-boilerplate-api, if you run this boilerplate at local
+# See: https://github.com/re-fort/vue-webpack-boilerplate-api
 ```
 
 ## Usage
