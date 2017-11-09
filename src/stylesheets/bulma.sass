@@ -1,13 +1,22 @@
 @import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+@import "~bulma/sass/utilities/derived-variables.sass";
 
 // Add your own colors, set new fonts, override Bulma styles
 // See also: http://bulma.io/documentation/overview/customize/
+$link: $primary
 
 @import "~bulma";
 
 .hero.is-primary
   a.nav-item
     color: rgba(255, 255, 255, 1)
+
+.nav-item
+  align-items: center
+  font-size: 1rem
+  display: flex
+  padding: .5rem .75rem
 
 .image
   img
