@@ -21,6 +21,7 @@
             .content
               a(:href="repo.html_url" target="_blank") {{ repo.full_name }}
               p.description {{ repo.description }}
+              span.tag  {{ repo.language }}
     pagination(:page="page", :disp-item-size="dispItemSize", :items="items", @page="setPage")
 </template>
 
