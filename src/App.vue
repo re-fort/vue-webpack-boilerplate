@@ -22,17 +22,18 @@
 </template>
 
 <script>
-  import { Xhr } from 'lib/axios'
-  export default {
-    name: 'App',
-    computed: {
-      isLoggedIn() {
-        return this.$store.state.Auth.token !== ''
-      },
+import { Xhr } from 'api'
+
+export default {
+  name: 'App',
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.Auth.token !== ''
     },
-    mounted() {
-      // it takes a little time to start app in case of heroku
-      Xhr.getWithoutToken('/ping')
-    }
+  },
+  mounted() {
+    // it takes a little time to start app in case of heroku
+    Xhr.getWithoutToken('/ping')
   }
+}
 </script>

@@ -1,25 +1,28 @@
 // Mixin for search
-import { Xhr } from 'lib/axios'
+import { Xhr } from 'api'
 
 export default {
   methods: {
-    searchStart() {
+    requestStart() {
       this.message = ''
       this.items = []
       this.isLoading = true
     },
-    search(url, options = {}) {
-      this.searchStart()
-      if (this.$store.state.Auth.token) {
-        Xhr.getWithToken(url, options, this.$store.state.Auth.token, this.success, this.error)
-      } else {
-        Xhr.getWithoutToken(url, options, this.success, this.error)
+    async search(url, options = {}) {
+      try {
+        this.requestStart()
+        const res = this.$store.state.Auth.token ?
+          await Xhr.getWithToken(url, options, this.$store.state.Auth.token) : await Xhr.getWithoutToken(url, options)
+        this.success(res)
+      } catch(e) {
+        this.error(e)
+      } finally {
+        this.requestEnd()
       }
     },
     success(response) {
       this.items = response.data.items
       this.page = 1
-      this.searchEnd()
     },
     error(error) {
       switch(error.response.status) {
@@ -32,9 +35,8 @@ export default {
         default:
           this.message = error.response.data.message
       }
-      this.searchEnd()
     },
-    searchEnd() {
+    requestEnd() {
       this.isLoading = false
     },
   },

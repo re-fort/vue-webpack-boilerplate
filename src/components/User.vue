@@ -24,9 +24,11 @@
 </template>
 
 <script>
+import { URL } from 'api'
 import mixinSearch from 'mixins/search'
 import mixinPage from 'mixins/page'
 import pagination from 'components/partials/Pagination'
+
 export default {
   name: 'User',
   components: {
@@ -45,7 +47,7 @@ export default {
   methods: {
     searchUser() {
       if (this.isLoading) return
-      this.search('/search/users', this.searchOptions())
+      this.search(URL.FETCH_USERS, this.searchOptions())
     },
     searchOptions() {
       return {
