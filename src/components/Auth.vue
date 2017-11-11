@@ -10,31 +10,31 @@
 </template>
 
 <script>
-  export default {
-    name: 'Auth',
-    beforeRouteEnter (route, redirect, next) {
-      return new Promise((resolve, reject) => {
-        if (route.hash) {
-          let token = route.hash.replace('#', '')
-          next(vm => {
-            vm.$store.dispatch('Auth/updateToken', token)
-            vm.$router.push('/')
-            resolve(token)
-          })
-        } else {
-          next(vm => {
-            vm.$store.dispatch('Auth/verifyToken')
-              .then((valid) => {
-                valid ? vm.$router.push('/') : next()
-                resolve(valid)
-              })
-              .catch(() => {
-                next()
-                reject()
-              })
-          })
-        }
-      })
-    },
-  }
+export default {
+  name: 'Auth',
+  beforeRouteEnter (route, redirect, next) {
+    return new Promise((resolve, reject) => {
+      if (route.hash) {
+        let token = route.hash.replace('#', '')
+        next(vm => {
+          vm.$store.dispatch('Auth/updateToken', token)
+          vm.$router.push('/')
+          resolve(token)
+        })
+      } else {
+        next(vm => {
+          vm.$store.dispatch('Auth/verifyToken')
+            .then((valid) => {
+              valid ? vm.$router.push('/') : next()
+              resolve(valid)
+            })
+            .catch(() => {
+              next()
+              reject()
+            })
+        })
+      }
+    })
+  },
+}
 </script>

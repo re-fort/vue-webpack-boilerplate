@@ -21,14 +21,16 @@
             .content
               a(:href="repo.html_url" target="_blank") {{ repo.full_name }}
               p.description {{ repo.description }}
-              span.tag  {{ repo.language }}
+              span.tag(v-if="repo.language")  {{ repo.language }}
     pagination(:page="page", :disp-item-size="dispItemSize", :items="items", @page="setPage")
 </template>
 
 <script>
+import { URL } from 'api'
 import mixinSearch from 'mixins/search'
 import mixinPage from 'mixins/page'
 import pagination from 'components/partials/Pagination'
+
 export default {
   name: 'Repo',
   components: {
@@ -47,7 +49,7 @@ export default {
   methods: {
     searchRepo() {
       if (this.isLoading) return
-      this.search('/search/repositories', this.searchOptions())
+      this.search(URL.FETCH_REPOSITORIES, this.searchOptions())
     },
     searchOptions() {
       return {

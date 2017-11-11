@@ -2,7 +2,7 @@ import { mount } from 'vue-test-utils'
 import assert from 'assert'
 import sinon from 'sinon'
 
-import { Xhr } from 'lib/axios'
+import { Xhr } from 'api'
 import Repo from 'src/components/Repo'
 
 describe('Repo', function () {

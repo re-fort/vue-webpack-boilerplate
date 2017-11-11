@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { URL } from 'api'
 import mixinSearch from 'mixins/search'
 import mixinPage from 'mixins/page'
 import pagination from 'components/partials/Pagination'
@@ -55,7 +56,8 @@ export default {
     }
   },
   mounted() {
-    this.fetchFollowers()
+    if (!this.$route.query.tab) this.fetchFollowers()
+    this.$route.query.tab === 'followers' ? this.fetchFollowers() : this.fetchFollowing()
   },
   methods: {
     fetch(button) {
@@ -64,16 +66,17 @@ export default {
     },
     fetchFollowers() {
       this.activeTab = 'followers'
-      this.search('/user/followers')
+      this.search(URL.FETCH_FOLLOWERS)
+      this.$router.push({ query: { tab: 'followers' } })
     },
     fetchFollowing() {
       this.activeTab = 'following'
-      this.search('/user/following')
+      this.search(URL.FETCH_FOLLOWING)
+      this.$router.push({ query: { tab: 'following' } })
     },
     success(response) {
       this.items = response.data
       this.page = 1
-      this.searchEnd()
     },
   },
 }

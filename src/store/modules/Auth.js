@@ -1,4 +1,4 @@
-import { Xhr } from 'lib/axios'
+import { Xhr } from 'api'
 
 const state = {
   token: '',
@@ -16,13 +16,14 @@ const actions = {
   },
 
   verifyToken({ state }) {
-    return new Promise((resolve, reject) => {
-      Xhr.getWithToken('/verify', {}, state.token, (response) => {
-        resolve(response.data.valid)
-      }, (error) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await Xhr.getWithToken('/verify', {}, state.token)
+        resolve(res.data.valid)
+      } catch(error) {
         console.error(error)
         reject(false)
-      })
+      }
     })
   },
 }
