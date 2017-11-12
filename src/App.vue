@@ -9,7 +9,7 @@
             .navbar-menu.is-active
               .navbar-end
                 .navbar-item.github
-                  a.navbar-item.button.is-primary.is-inverted.is-outlined(:href="isLoggedIn ? './#/auth/#' : $store.state.authUrl")
+                  a.navbar-item.button.is-primary.is-inverted.is-outlined(@click="push()")
                     span.icon
                       i.fa.fa-github
                     span {{ isLoggedIn ? 'log out' : 'log in' }}
@@ -34,6 +34,17 @@ export default {
   mounted() {
     // it takes a little time to start app in case of heroku
     Xhr.getWithoutToken('/ping')
-  }
+  },
+  methods: {
+    push() {
+      if (this.isLoggedIn) {
+        this.$ga.event('auth', 'click', 'logout', 1)
+        this.$router.push('/auth/#')
+      } else {
+        this.$ga.event('auth', 'click', 'login', 1)
+        location.href = this.$store.state.authUrl
+      }
+    }
+  },
 }
 </script>
