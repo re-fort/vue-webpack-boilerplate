@@ -18,7 +18,7 @@ function getPublicPath () { return isProduction() ? `/${_project}/` : '/' }
 module.exports = {
   entry: {
     app: `./${_src}/main.js`,
-    vendor: ['vue', 'axios', 'vue-router', 'vuex', 'vuex-router-sync', 'vuex-persistedstate', 'js-cookie', 'font-awesome/scss/font-awesome'],
+    vendor: ['vue', 'axios', 'vue-router', 'vuex', 'vuex-router-sync', 'vuex-persistedstate', 'js-cookie', 'font-awesome/scss/font-awesome', 'animate.css'],
   },
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
@@ -69,6 +69,10 @@ module.exports = {
       {
         test: /\.(sass|scss)$/,
         use: extractTextPlugin.extract('css-loader?minimize!sass-loader?minimize'),
+      },
+      {
+        test: /\.css$/,
+        use: extractTextPlugin.extract('css-loader?minimize'),
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,

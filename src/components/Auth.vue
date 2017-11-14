@@ -18,6 +18,7 @@ export default {
         let token = route.hash.replace('#', '')
         next(vm => {
           vm.$store.dispatch('Auth/updateToken', token)
+          if (token) vm.$emit('notify', {　message: 'logged in', type: 'info', duration: 1500, showCloseButton: false })
           vm.$router.push('/')
           resolve(token)
         })

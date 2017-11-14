@@ -17,6 +17,7 @@
     "test:unit": "karma start tests/unit/karma.conf.js --single-run"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "axios": "^0.17.0",
     "babel-runtime": "^6.26.0",
     "bulma": "^0.6.1",

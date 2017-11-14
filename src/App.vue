@@ -13,7 +13,7 @@
                     span.icon
                       i.fa.fa-github
                     span {{ isLoggedIn ? 'log out' : 'log in' }}
-    router-view
+    router-view(@notify="notify")
     footer.footer
       .container
         .content.has-text-centered
@@ -23,9 +23,15 @@
 
 <script>
 import { Xhr } from 'api'
+import notification from 'components/partials/Notification'
+
+const NotificationComponent = Vue.extend(notification)
 
 export default {
   name: 'App',
+  components: {
+    notification
+  },
   computed: {
     isLoggedIn() {
       return this.$store.state.Auth.token !== ''
@@ -39,11 +45,18 @@ export default {
     push() {
       if (this.isLoggedIn) {
         this.$ga.event('auth', 'click', 'logout', 1)
+        this.notify({　message: 'logged out', type: 'info', duration: 1500, showCloseButton: false })
         this.$router.push('/auth/#')
       } else {
         this.$ga.event('auth', 'click', 'login', 1)
         location.href = this.$store.state.authUrl
       }
+    },
+    notify(propsData) {
+      return new NotificationComponent({
+        el: document.createElement('div'),
+        propsData
+      })
     }
   },
 }
