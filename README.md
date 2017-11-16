@@ -3,7 +3,13 @@
 vue-webpack-boilerplate
 ======================
 
-A Webpack boilerplate with vue-loader, axios, vue-router and vuex
+A Webpack boilerplate with Vue.js, vue-loader, axios, vue-router and Vuex.  
+The aim of this project is:
+- remove the need of manually setting up above libraries
+- provide useful features are necessary when building SPA
+
+## Demo
+https://re-fort.net/vue-webpack-boilerplate/
 
 ## What's included
 ### develop
@@ -23,7 +29,7 @@ A Webpack boilerplate with vue-loader, axios, vue-router and vuex
 - power-assert
 
 ## Features
-- Practical demo (with auth example)
+- Practical demo (authentication, pagination, notification and tracking with GA)
 - Ready to use Vue plugins (vue-router, Vuex)
 - Use of webpack and vue-loader with Hot Module Replacement
 - Unit Testing (with Karma + Mocha + vue-test-utils)
@@ -47,6 +53,3 @@ npm run dev # or yarn run dev
 - `npm run dev`
 - `npm run build`
 - `npm test`
-
-## Demo
-https://re-fort.net/vue-webpack-boilerplate/
