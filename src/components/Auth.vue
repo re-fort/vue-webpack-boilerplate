@@ -6,7 +6,7 @@
           .message-header
             p Required authentication
           .message-body
-            a(:href="$store.state.authUrl") Log in
+            a(@click="push") Log in
 </template>
 
 <script>
@@ -36,6 +36,13 @@ export default {
         })
       }
     })
+  },
+  methods: {
+    push() {
+      this.$ga.event('auth', 'click', 'login', 1)
+      this.$store.commit('loading', true)
+      location.href = this.$store.state.authUrl
+    },
   },
 }
 </script>

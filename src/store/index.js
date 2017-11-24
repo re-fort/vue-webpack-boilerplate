@@ -9,6 +9,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     authUrl: `${Settings.Api.baseUrl}/auth`,
+    loading: false,
+  },
+  mutations: {
+    loading(state, loading) {
+      state.loading = loading
+    },
   },
   modules: {
     Auth,
