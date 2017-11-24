@@ -29,7 +29,7 @@ https://re-fort.net/vue-webpack-boilerplate/
 - power-assert
 
 ## Features
-- Practical demo (authentication, pagination, notification and tracking with GA)
+- Practical demo (authentication, pagination, notification, loading spinner and tracking with GA)
 - Ready to use Vue plugins (vue-router, Vuex)
 - Use of webpack and vue-loader with Hot Module Replacement
 - Unit Testing (with Karma + Mocha + vue-test-utils)
