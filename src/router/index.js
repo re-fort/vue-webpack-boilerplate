@@ -7,18 +7,21 @@ Vue.use(VueRouter)
 
 let router = new VueRouter({ routes })
 
-router.beforeEach((to, from, next) => {
-  // requires authentication
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    store.dispatch('Auth/verifyToken')
-      .then((valid) => {
-        valid ? next() : next({ path: '/auth' })
-      })
-      .catch(() => {
-        next({ path: '/auth' })
-      })
-  } else {
-    next()
+router.beforeEach(async (to, from, next) => {
+  try {
+    store.commit('loading', true)
+
+    // requires authentication
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      const valid = await store.dispatch('Auth/verifyToken')
+      valid ? next() : next({ path: '/auth' })
+    } else {
+      next()
+    }
+  } catch(e) {
+    next({path: '/auth'})
+  } finally {
+    store.commit('loading', false)
   }
 })
 

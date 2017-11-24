@@ -1,5 +1,7 @@
 <template lang="pug">
   #app
+    .overlay(v-if="this.$store.state.loading")
+    beat-loader(:loading="this.$store.state.loading", color="#00d1b2")
     section.hero.is-primary
       .container
         nav.navbar.hero.is-primary
@@ -23,6 +25,7 @@
 
 <script>
 import { Xhr } from 'api'
+import BeatLoader from 'vue-spinner/src/BeatLoader.vue'
 import notification from 'components/partials/Notification'
 
 const NotificationComponent = Vue.extend(notification)
@@ -30,7 +33,8 @@ const NotificationComponent = Vue.extend(notification)
 export default {
   name: 'App',
   components: {
-    notification
+    notification,
+    BeatLoader,
   },
   computed: {
     isLoggedIn() {
@@ -49,6 +53,7 @@ export default {
         this.$router.push('/auth/#')
       } else {
         this.$ga.event('auth', 'click', 'login', 1)
+        this.$store.commit('loading', true)
         location.href = this.$store.state.authUrl
       }
     },
@@ -61,3 +66,22 @@ export default {
   },
 }
 </script>
+
+<style lang="sass">
+.overlay
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 99998
+  background-color: rgba(255, 255, 255, .5)
+
+.v-spinner
+  position: absolute
+  top: 30%
+  left: 50%
+  width: 100%
+  height: 100%
+  z-index: 99999
+</style>
