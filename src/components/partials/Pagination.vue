@@ -52,3 +52,8 @@ export default {
   },
 }
 </script>
+
+<style lang="sass">
+.pagination
+  padding-top: 30px
+</style>

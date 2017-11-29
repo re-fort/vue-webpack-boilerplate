@@ -68,6 +68,26 @@ export default {
 </script>
 
 <style lang="sass">
+@import url(https://fonts.googleapis.com/css?family=Poiret+One);
+
+body, input
+  font-family: 'Poiret One'
+  font-size: 24px
+
+#app
+  display: flex
+  min-height: 100vh
+  flex-direction: column
+
+.section
+  flex: 1
+
+.selection
+  width: 100%
+
+.description
+  font-size: 16px
+
 .overlay
   position: absolute
   top: 0
