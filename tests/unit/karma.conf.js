@@ -1,4 +1,4 @@
-const webpackConfig = require('../../webpack.config.babel.js')
+const webpackConfig = require('../../webpack.config.js')
 
 // no need for app entry during tests
 delete webpackConfig.entry
