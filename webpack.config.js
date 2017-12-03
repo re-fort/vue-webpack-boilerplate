@@ -140,6 +140,7 @@ if (isProduction()) {
       },
     }),
     new webpack.optimize.UglifyJsPlugin({
+      comment: false,
       compress: {
         warnings: false,
       },
