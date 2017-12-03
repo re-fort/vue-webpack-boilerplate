@@ -23,6 +23,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
     filename: isProduction() ? 'js/[name].[hash].js' : 'js/[name].js',
+    chunkFilename: isProduction() ? 'js/[name].[hash].js' : 'js/[name].js',
   },
   resolve: {
     modules: [
