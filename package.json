@@ -23,8 +23,8 @@
     "bulma": "^0.6.1",
     "font-awesome": "^4.7.0",
     "js-cookie": "^2.2.0",
-    "vue": "^2.5.8",
-    "vue-analytics": "^5.4.0",
+    "vue": "^2.5.9",
+    "vue-analytics": "^5.5.0",
     "vue-router": "^3.0.1",
     "vue-spinner": "^1.0.3",
     "vuex": "^3.0.1",
@@ -41,7 +41,7 @@
     "babel-preset-env": "^1.6.1",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
-    "eslint": "^4.12.0",
+    "eslint": "^4.12.1",
     "eslint-plugin-vue": "beta",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
@@ -65,10 +65,10 @@
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^13.5.0",
     "vue-style-loader": "^3.0.3",
-    "vue-template-compiler": "^2.5.8",
+    "vue-template-compiler": "^2.5.9",
     "vue-test-utils": "vue-test-utils@1.0.0-beta.6",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4",
+    "webpack": "^3.9.1",
+    "webpack-dev-server": "^2.9.5",
     "webpack-espower-loader": "^1.0.2"
   }
 }
