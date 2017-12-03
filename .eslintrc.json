@@ -9,8 +9,10 @@
     "Vue": false
   },
   "parserOptions": {
+    "parser": "babel-eslint",
     "ecmaVersion": 2017,
-    "sourceType": "module"
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
   },
   "rules": {
     "comma-dangle": ["warn", "always-multiline"],

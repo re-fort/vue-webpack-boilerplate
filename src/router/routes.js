@@ -1,10 +1,10 @@
 // Routes
-import Top from 'components/Top'
-import Auth from 'components/Auth'
-import Search from 'components/Search'
-import User from 'components/User'
-import Repo from 'components/Repo'
-import MyPage from 'components/MyPage'
+const Top = () => import(/* webpackChunkName: 'top' */ 'components/Top')
+const Auth = () => import(/* webpackChunkName: 'auth' */ 'components/Auth')
+const Search = () => import(/* webpackChunkName: 'search' */ 'components/Search')
+const User = () => import(/* webpackChunkName: 'user' */ 'components/User')
+const Repo = () => import(/* webpackChunkName: 'repo' */ 'components/Repo')
+const MyPage = () => import(/* webpackChunkName: 'myPage' */ 'components/MyPage')
 
 export default [
   { path: '/', component: Top },

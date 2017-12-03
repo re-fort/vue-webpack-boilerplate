@@ -23,6 +23,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, `./${_dist}`),
     filename: isProduction() ? 'js/[name].[hash].js' : 'js/[name].js',
+    chunkFilename: isProduction() ? 'js/[name].[hash].js' : 'js/[name].js',
   },
   resolve: {
     modules: [
@@ -119,7 +120,7 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
   },
-  devtool: '#source-map',
+  devtool: '#eval-source-map',
 }
 
 if (!isTesting()) {
@@ -131,7 +132,7 @@ if (!isTesting()) {
 }
 
 if (isProduction()) {
-  module.exports.devtool = '#eval'
+  module.exports.devtool = '#source-map'
   // https://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -140,6 +141,7 @@ if (isProduction()) {
       },
     }),
     new webpack.optimize.UglifyJsPlugin({
+      comment: false,
       compress: {
         warnings: false,
       },
