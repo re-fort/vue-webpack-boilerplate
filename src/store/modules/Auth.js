@@ -21,7 +21,7 @@ const actions = {
         const res = await Xhr.getWithToken('/verify', {}, state.token)
         resolve(res.data.valid)
       } catch(error) {
-        console.error(error)
+        Vue.prototype.$raven.captureException(error)
         reject(false)
       }
     })

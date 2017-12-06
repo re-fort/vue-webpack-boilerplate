@@ -7,10 +7,17 @@ import store from './store'
 import VuexRouterSync from 'vuex-router-sync'
 import VueAnalytics from 'vue-analytics'
 
+import Raven from 'raven-js'
+import RavenVue from 'raven-js/plugins/vue'
+
 import App from 'App'
 
 // Sass
 import 'stylesheets/bulma'
+
+// Sentry
+Raven.config(settings.Sentry.url).addPlugin(RavenVue, Vue).install()
+Vue.prototype.$raven = Raven
 
 // axios
 Vue.prototype.$http = axios
