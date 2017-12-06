@@ -1,5 +1,5 @@
 // axios handling
-import Settings from 'settings'
+import Settings from 'config/settings'
 
 export const URL = {
   FETCH_REPOSITORIES: '/search/repositories',

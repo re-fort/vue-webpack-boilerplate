@@ -1,6 +1,6 @@
 // App Setting
 import 'filters'
-import settings from 'settings'
+import settings from './config/settings'
 import axios from 'axios'
 import router from './router'
 import store from './store'
