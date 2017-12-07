@@ -2,7 +2,7 @@ import Vuex from 'vuex'
 import Auth from './modules/Auth'
 import * as Cookies from 'js-cookie'
 import createPersistedState from 'vuex-persistedstate'
-import Settings from 'settings'
+import Settings from 'config/settings'
 
 Vue.use(Vuex)
 
