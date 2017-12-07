@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
-    .overlay(v-if="this.$store.state.loading")
-    beat-loader(:loading="this.$store.state.loading", color="#00d1b2")
+    .overlay(v-show="this.$store.state.loading")
+      beat-loader(:loading="this.$store.state.loading", color="#00d1b2")
     section.hero.is-primary
       .container
         nav.navbar.hero.is-primary
