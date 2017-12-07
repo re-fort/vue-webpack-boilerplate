@@ -98,10 +98,9 @@ body, input
   background-color: rgba(255, 255, 255, .5)
 
 .v-spinner
-  position: absolute
-  top: 30%
-  left: 50%
-  width: 100%
-  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 80%
   z-index: 99999
 </style>
