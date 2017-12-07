@@ -1,7 +1,7 @@
 <template lang="pug">
   #app
-    .overlay(v-if="this.$store.state.loading")
-    beat-loader(:loading="this.$store.state.loading", color="#00d1b2")
+    .overlay(v-show="this.$store.state.loading")
+      beat-loader(:loading="this.$store.state.loading", color="#00d1b2")
     section.hero.is-primary
       .container
         nav.navbar.hero.is-primary
@@ -98,10 +98,9 @@ body, input
   background-color: rgba(255, 255, 255, .5)
 
 .v-spinner
-  position: absolute
-  top: 30%
-  left: 50%
-  width: 100%
-  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 80%
   z-index: 99999
 </style>
