@@ -1,12 +1,24 @@
-import { mount } from 'vue-test-utils'
+import { mount, createLocalVue } from 'vue-test-utils'
+import Vuex from 'vuex'
 import assert from 'assert'
 import sinon from 'sinon'
 
-import { Xhr } from 'api'
-import User from 'src/components/User'
+import { Xhr } from 'api/index'
+import SearchUserPage from 'src/pages/SearchUserPage'
 
-describe('User', function () {
-  const $store = { state: { Auth: { token: '' } } }
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
+describe('SearchUserPage', function () {
+  const store = new Vuex.Store({
+    modules: {
+      Auth: {
+        namespaced: true,
+        state: { token: '' },
+      },
+    },
+  })
+
   const users = [
     {
       avatar_url: 'https://avatars2.githubusercontent.com/u/3705391?v=4',
@@ -22,7 +34,7 @@ describe('User', function () {
 
   describe('searchUser()', function () {
     it('renders users when succeed', function () {
-      const wrapper = mount(User, { mocks: { $store } })
+      const wrapper = mount(SearchUserPage, { localVue, store })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: users } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -34,8 +46,8 @@ describe('User', function () {
       assert(link.text() === users[0].login)
     })
 
-    it('renders 1 user when setting "dispItemSize" to 1', function () {
-      const wrapper = mount(User, { data: { dispItemSize: 1 }, mocks: { $store } })
+    it('renders 1 user when setting "perPage" to 1', function () {
+      const wrapper = mount(SearchUserPage, { localVue, store , data: { perPage: 1 }})
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: users } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -43,14 +55,12 @@ describe('User', function () {
     })
 
     it('renders a meesage when failed', function () {
-      const wrapper = mount(User, { mocks: { $store } })
+      const wrapper = mount(SearchUserPage, { localVue, store })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.error({ response: { status: 401 } }) })
-      let message = wrapper.findAll('.message')
-      assert(message.length === 0)
+      assert(wrapper.findAll('b-message').length === 0)
       wrapper.find('.button').trigger('click')
       stub.restore()
-      message = wrapper.findAll('.message')
-      assert(message.length === 1)
+      assert(wrapper.findAll('b-message').length === 1)
     })
   })
 })

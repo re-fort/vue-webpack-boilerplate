@@ -1,7 +1,6 @@
 <template lang="pug">
   #app
-    .overlay(v-show="this.$store.state.loading")
-      beat-loader(:loading="this.$store.state.loading", color="#00d1b2")
+    b-loading(:active="loading")
     section.hero.is-primary
       .container
         nav.navbar.hero.is-primary
@@ -11,96 +10,96 @@
             .navbar-menu.is-active
               .navbar-end
                 .navbar-item.github
-                  a.navbar-item.button.is-primary.is-inverted.is-outlined(@click="push()")
-                    span.icon
-                      i.fa.fa-github
+                  base-button(:classes="loginButtonClasses", @onClick="push")
+                    b-icon(icon="github", size="is-small")
                     span {{ isLoggedIn ? 'log out' : 'log in' }}
-    router-view(@notify="notify")
+    router-view
     footer.footer
       .container
         .content.has-text-centered
           a(href="https://github.com/re-fort/vue-webpack-boilerplate").icon
-            i.fa.fa-github
+            b-icon(icon="github")
 </template>
 
 <script>
-import { Xhr } from 'api'
-import BeatLoader from 'vue-spinner/src/BeatLoader.vue'
-import notification from 'components/partials/Notification'
+  import { mapState, mapGetters, mapMutations } from 'vuex'
+  import Settings from 'config/settings'
+  import { Xhr } from 'api'
+  import BaseButton from 'components/BaseButton'
 
-const NotificationComponent = Vue.extend(notification)
-
-export default {
-  name: 'App',
-  components: {
-    notification,
-    BeatLoader,
-  },
-  computed: {
-    isLoggedIn() {
-      return this.$store.state.Auth.token !== ''
+  export default {
+    name: 'App',
+    components: {
+      BaseButton,
     },
-  },
-  mounted() {
-    // it takes a little time to start app in case of heroku
-    Xhr.getWithoutToken('/ping')
-  },
-  methods: {
-    push() {
-      if (this.isLoggedIn) {
-        this.$ga.event('auth', 'click', 'logout', 1)
-        this.notify({　message: 'logged out', type: 'info', duration: 1500, showCloseButton: false })
-        this.$router.push('/auth/#')
-      } else {
-        this.$ga.event('auth', 'click', 'login', 1)
-        this.$store.commit('loading', true)
-        location.href = this.$store.state.authUrl
+    computed: {
+      ...mapState(['loading']),
+      ...mapState('Auth', ['token']),
+      ...mapGetters('Auth', ['isLoggedIn']),
+    },
+    created() {
+      // it takes a little time to start app in case of heroku
+      Xhr.getWithoutToken('/ping')
+    },
+    data() {
+      return {
+        loginButtonClasses: ['navbar-item', 'is-primary', 'is-inverted', 'is-outlined'],
       }
     },
-    notify(propsData) {
-      return new NotificationComponent({
-        el: document.createElement('div'),
-        propsData
-      })
-    }
-  },
-}
+    methods: {
+      ...mapMutations(['updateLoading']),
+      push() {
+        if (this.isLoggedIn) {
+          this.$ga.event('auth', 'click', 'logout', 1)
+          this.updateLoading(true)
+          this.$toast.open({ message: 'logged out', type: 'is-info' })
+          this.updateLoading(false)
+          this.$router.push('/auth/#')
+        } else {
+          this.$ga.event('auth', 'click', 'login', 1)
+          this.updateLoading(true)
+          location.href = Settings.Api.authUrl
+        }
+      },
+    },
+  }
 </script>
 
 <style lang="sass">
-@import url(https://fonts.googleapis.com/css?family=Poiret+One);
+  @import url(https://fonts.googleapis.com/css?family=Poiret+One);
 
-body, input
-  font-family: 'Poiret One'
-  font-size: 24px
+  body, input
+    font-family: 'Poiret One'
+    font-size: 24px
 
-#app
-  display: flex
-  min-height: 100vh
-  flex-direction: column
+  .section
+    flex: 1
 
-.section
-  flex: 1
+  .toast
+    font-size: 20px
 
-.selection
-  width: 100%
+  .loading-icon
+    font-size: 12px
+</style>
 
-.description
-  font-size: 16px
+<style lang="sass" scoped>
+  #app
+    display: flex
+    min-height: 100vh
+    flex-direction: column
 
-.overlay
-  position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  z-index: 99998
-  background-color: rgba(255, 255, 255, .5)
+    .nav-item
+      align-items: center
+      font-size: 1rem
+      display: flex
+      padding: .5rem .75rem
 
-.v-spinner
-  display: flex
-  justify-content: center
-  align-items: center
-  height: 80%
-  z-index: 99999
+    a.icon
+      cursor: pointer
+
+    @media screen and (max-width: 1023px)
+      .navbar-menu
+        background-color: initial
+        box-shadow: initial
+        padding: initial
 </style>

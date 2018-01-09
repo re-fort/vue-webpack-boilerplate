@@ -1,4 +1,9 @@
 {
+  "env": {
+    "testing": {
+      "presets": ["env", "babel-preset-power-assert"]
+    }
+  },
   "presets": ["env"],
   "plugins": ["transform-runtime", "transform-object-rest-spread", "syntax-dynamic-import"]
 }

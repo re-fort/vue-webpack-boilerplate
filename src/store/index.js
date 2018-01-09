@@ -2,20 +2,22 @@ import Vuex from 'vuex'
 import Auth from './modules/Auth'
 import * as Cookies from 'js-cookie'
 import createPersistedState from 'vuex-persistedstate'
-import Settings from 'config/settings'
 
 Vue.use(Vuex)
 
+export const state = {
+  loading: false,
+}
+
+export const mutations = {
+  updateLoading (state, loading) {
+    state.loading = loading
+  },
+}
+
 export default new Vuex.Store({
-  state: {
-    authUrl: `${Settings.Api.baseUrl}/auth`,
-    loading: false,
-  },
-  mutations: {
-    loading(state, loading) {
-      state.loading = loading
-    },
-  },
+  state,
+  mutations,
   modules: {
     Auth,
   },

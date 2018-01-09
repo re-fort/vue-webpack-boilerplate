@@ -21,7 +21,7 @@ router.beforeEach(async (to, from, next) => {
   } catch(e) {
     next({path: '/auth'})
   } finally {
-    store.commit('loading', false)
+    store.commit('updateLoading', false)
   }
 })
 

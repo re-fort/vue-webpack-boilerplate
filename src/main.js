@@ -4,6 +4,7 @@ import settings from './config/settings'
 import axios from 'axios'
 import router from './router'
 import store from './store'
+import Buefy from 'buefy'
 import VuexRouterSync from 'vuex-router-sync'
 import VueAnalytics from 'vue-analytics'
 
@@ -24,6 +25,11 @@ Vue.prototype.$http = axios
 
 // vue-router and vuex store in sync.
 VuexRouterSync.sync(store, router)
+
+// Buefy
+Vue.use(Buefy, {
+  defaultIconPack: 'fa',
+})
 
 // GA tracking
 Vue.use(VueAnalytics, {

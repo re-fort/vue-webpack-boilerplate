@@ -1,17 +1,17 @@
 // Routes
-const Top = () => import(/* webpackChunkName: 'top' */ 'components/Top')
-const Auth = () => import(/* webpackChunkName: 'auth' */ 'components/Auth')
-const Search = () => import(/* webpackChunkName: 'search' */ 'components/Search')
-const User = () => import(/* webpackChunkName: 'user' */ 'components/User')
-const Repo = () => import(/* webpackChunkName: 'repo' */ 'components/Repo')
-const MyPage = () => import(/* webpackChunkName: 'myPage' */ 'components/MyPage')
+const TopPage = () => import(/* webpackChunkName: 'topPage' */ 'pages/TopPage')
+const AuthPage = () => import(/* webpackChunkName: 'auth' */ 'pages/AuthPage')
+const SearchPage = () => import(/* webpackChunkName: 'searchPage' */ 'pages/SearchPage')
+const SearchUserPage = () => import(/* webpackChunkName: 'searchUserPage' */ 'pages/SearchUserPage')
+const SearchRepoPage = () => import(/* webpackChunkName: 'repo' */ 'pages/SearchRepoPage')
+const MyPage = () => import(/* webpackChunkName: 'myPage' */ 'pages/MyPage')
 
 export default [
-  { path: '/', component: Top },
-  { path: '/auth', component: Auth },
-  { path: '/search', component: Search },
-  { path: '/search/user', component: User },
-  { path: '/search/repo', component: Repo },
+  { path: '/', component: TopPage },
+  { path: '/auth', component: AuthPage },
+  { path: '/search', component: SearchPage },
+  { path: '/search/user', component: SearchUserPage },
+  { path: '/search/repo', component: SearchRepoPage },
   { path: '/user', component: MyPage, meta: { requiresAuth: true } },
   { path: '/user/:activeTab', component: MyPage, meta: { requiresAuth: true } },
 ]

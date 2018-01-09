@@ -1,12 +1,24 @@
-import { mount } from 'vue-test-utils'
+import { mount, createLocalVue } from 'vue-test-utils'
+import Vuex from 'vuex'
 import assert from 'assert'
 import sinon from 'sinon'
 
-import { Xhr } from 'api'
-import Repo from 'src/components/Repo'
+import { Xhr } from 'api/index'
+import SearchRepoPage from 'src/pages/SearchRepoPage'
 
-describe('Repo', function () {
-  const $store = { state: { Auth: { token: '' } } }
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
+describe('SearchRepoPage', function () {
+  const store = new Vuex.Store({
+    modules: {
+      Auth: {
+        namespaced: true,
+        state: { token: '' },
+      },
+    },
+  })
+
   const repos = [
     {
       full_name: 're-fort/vue-webpack-boilerplate',
@@ -16,7 +28,7 @@ describe('Repo', function () {
     },
     {
       full_name: 're-fort/TV-kko',
-      description: 'Search TV programs by the casts',
+      description: 'SearchPage TV programs by the casts',
       owner: { avatar_url: 'https://avatars2.githubusercontent.com/u/3705391?v=4' },
       html_url: 'https://github.com/re-fort/TV-kko',
     },
@@ -24,7 +36,7 @@ describe('Repo', function () {
 
   describe('searchRepo()', function () {
     it('renders repos when succeed', function () {
-      const wrapper = mount(Repo, { mocks: { $store } })
+      const wrapper = mount(SearchRepoPage, { localVue, store })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: repos } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -38,8 +50,8 @@ describe('Repo', function () {
       assert(description.text() === repos[0].description)
     })
 
-    it('renders 1 repo when setting "dispItemSize" to 1', function () {
-      const wrapper = mount(Repo, { data: { dispItemSize: 1 }, mocks: { $store } })
+    it('renders 1 repo when setting "perPage" to 1', function () {
+      const wrapper = mount(SearchRepoPage, { localVue, store, data: { perPage: 1 }})
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.success({ data: { items: repos } }) })
       wrapper.find('.button').trigger('click')
       stub.restore()
@@ -47,14 +59,12 @@ describe('Repo', function () {
     })
 
     it('renders a meesage when failed', function () {
-      const wrapper = mount(Repo, { mocks: { $store } })
+      const wrapper = mount(SearchRepoPage, { localVue, store })
       let stub = sinon.stub(Xhr, 'getWithoutToken').callsFake(() => { wrapper.vm.error({ response: { status: 403 } }) })
-      let message = wrapper.findAll('.message')
-      assert(message.length === 0)
+      assert(wrapper.findAll('b-message').length === 0)
       wrapper.find('.button').trigger('click')
       stub.restore()
-      message = wrapper.findAll('.message')
-      assert(message.length === 1)
+      assert(wrapper.findAll('b-message').length === 1)
     })
   })
 })

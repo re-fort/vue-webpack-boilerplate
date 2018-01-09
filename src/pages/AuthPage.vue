@@ -17,8 +17,8 @@ export default {
       if (route.hash) {
         let token = route.hash.replace('#', '')
         next(vm => {
-          vm.$store.dispatch('Auth/updateToken', token)
-          if (token) vm.$emit('notify', {　message: 'logged in', type: 'info', duration: 1500, showCloseButton: false })
+          vm.$store.commit('Auth/updateToken', token)
+          if (token) vm.$toast.open({ message: 'logged in', type: 'is-info' })
           vm.$router.push('/')
           resolve(token)
         })
