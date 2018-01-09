@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import Settings from 'config/settings'
+
   export default {
     name: 'Auth',
     beforeRouteEnter (route, redirect, next) {
@@ -41,7 +43,7 @@
       push() {
         this.$ga.event('auth', 'click', 'login', 1)
         this.$store.commit('loading', true)
-        location.href = this.$store.state.authUrl
+        location.href = Settings.Api.authUrl
       },
     },
   }
