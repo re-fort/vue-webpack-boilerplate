@@ -1,13 +1,25 @@
-import { mount } from 'vue-test-utils'
+import { mount, createLocalVue } from 'vue-test-utils'
+import Vuex from 'vuex'
 import assert from 'assert'
 import sinon from 'sinon'
 
-import { Xhr } from 'api'
-import MyPage from 'src/components/MyPage'
+import { Xhr } from 'api/index'
+import MyPage from 'src/pages/MyPage'
+
+const localVue = createLocalVue()
+localVue.use(Vuex)
 
 describe('MyPage', function () {
   const $router = { push: () => { return sinon.stub() } }
-  const $store = { state: { Auth: { token: 'test' } } }
+  const store = new Vuex.Store({
+    modules: {
+      Auth: {
+        namespaced: true,
+        state: { token: 'test' },
+      },
+    },
+  })
+
   const users = [
     {
       avatar_url: 'https://avatars2.githubusercontent.com/u/3705391?v=4',
@@ -26,7 +38,7 @@ describe('MyPage', function () {
 
   describe('fetchFollowers()', function () {
     it('renders followers when succeed', function () {
-      const wrapper = mount(MyPage, { mocks: { $router, $store } })
+      const wrapper = mount(MyPage, { localVue, store, mocks: { $router } })
       let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.success({ data: users }) })
       wrapper.findAll('.button').at(0).trigger('click')
       stub.restore()
@@ -39,15 +51,15 @@ describe('MyPage', function () {
     })
 
     it('adds "is-active" class on clicked button', function () {
-      const wrapper = mount(MyPage, { mocks: { $router, $store } })
+      const wrapper = mount(MyPage, { localVue, store, mocks: { $router } })
       let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.success({ data: users }) })
       wrapper.findAll('.button').at(0).trigger('click')
       stub.restore()
-      assert(wrapper.findAll('li').at(0).hasClass('is-active'))
+      assert(wrapper.findAll('li').at(0).classes().includes('is-active'))
     })
 
-    it('renders 1 follower when setting "dispItemSize" to 1', function () {
-      const wrapper = mount(MyPage, { data: { dispItemSize: 1 }, mocks: { $router, $store } })
+    it('renders 1 follower when setting "perPage" to 1', function () {
+      const wrapper = mount(MyPage, { localVue, store, data: { perPage: 1 }, mocks: { $router } })
       let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.success({ data: users }) })
       wrapper.findAll('.button').at(0).trigger('click')
       stub.restore()
@@ -55,20 +67,18 @@ describe('MyPage', function () {
     })
 
     it('renders a meesage when failed', function () {
-      const wrapper = mount(MyPage, { mocks: { $router, $store } })
-      let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.error({ response: { status: 404, data: { message: '404 Not Found' }} })})
-      let message = wrapper.findAll('.message')
-      assert(message.length === 0)
+      const wrapper = mount(MyPage, { localVue, store, mocks: { $router } })
+      let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.error({ response: { status: 404, data: { errorMessage: '404 Not Found' }} })})
+      assert(wrapper.findAll('b-message').length === 0)
       wrapper.findAll('.button').at(0).trigger('click')
       stub.restore()
-      message = wrapper.findAll('.message')
-      assert(message.length === 1)
+      assert(wrapper.findAll('b-message').length === 1)
     })
   })
 
   describe('fetchFollowing()', function () {
     it('renders followings when succeed', function () {
-      const wrapper = mount(MyPage, { mocks: { $router, $store } })
+      const wrapper = mount(MyPage, { localVue, store, mocks: { $router } })
       let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.success({ data: users }) })
       wrapper.findAll('.button').at(1).trigger('click')
       stub.restore()
@@ -81,15 +91,15 @@ describe('MyPage', function () {
     })
 
     it('adds "is-active" class on clicked button', function () {
-      const wrapper = mount(MyPage, { mocks: { $router, $store } })
+      const wrapper = mount(MyPage, { localVue, store, mocks: { $router } })
       let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.success({ data: users }) })
       wrapper.findAll('.button').at(1).trigger('click')
       stub.restore()
-      assert(wrapper.findAll('li').at(1).hasClass('is-active'))
+      assert(wrapper.findAll('li').at(1).classes().includes('is-active'))
     })
 
-    it('renders 1 following when setting "dispItemSize" to 1', function () {
-      const wrapper = mount(MyPage, { data: { dispItemSize: 1 }, mocks: { $router, $store } })
+    it('renders 1 following when setting "perPage" to 1', function () {
+      const wrapper = mount(MyPage, { localVue, store, data: { perPage: 1 }, mocks: { $router } })
       let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.success({ data: users }) })
       wrapper.findAll('.button').at(1).trigger('click')
       stub.restore()
@@ -97,14 +107,12 @@ describe('MyPage', function () {
     })
 
     it('renders a meesage when failed', function () {
-      const wrapper = mount(MyPage, { mocks: { $router, $store } })
-      let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.error({ response: { status: 404, data: { message: '404 Not Found' }} })})
-      let message = wrapper.findAll('.message')
-      assert(message.length === 0)
+      const wrapper = mount(MyPage, { localVue, store, mocks: { $router } })
+      let stub = sinon.stub(Xhr, 'getWithToken').callsFake(() => { wrapper.vm.error({ response: { status: 404, data: { errorMessage: '404 Not Found' }} })})
+      assert(wrapper.findAll('b-message').length === 0)
       wrapper.findAll('.button').at(1).trigger('click')
       stub.restore()
-      message = wrapper.findAll('.message')
-      assert(message.length === 1)
+      assert(wrapper.findAll('b-message').length === 1)
     })
   })
 })
