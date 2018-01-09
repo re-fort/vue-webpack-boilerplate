@@ -6,7 +6,7 @@ vue-webpack-boilerplate
 A Webpack boilerplate with Vue.js, vue-loader, axios, vue-router and Vuex.  
 The aim of this project is:
 - remove the need of manually setting up above libraries
-- provide useful features are necessary when building SPA
+- provide useful features that are necessary when building SPA
 
 ## Demo
 https://re-fort.net/vue-webpack-boilerplate/
@@ -19,7 +19,7 @@ https://re-fort.net/vue-webpack-boilerplate/
 - axios
 - vue-router
 - Vuex
-- Bulma
+- Buefy(Vue components based on Bulma)
 - Font Awesome
 
 ### test
@@ -29,8 +29,10 @@ https://re-fort.net/vue-webpack-boilerplate/
 - power-assert
 
 ## Features
-- Practical demo (authentication, pagination, notification, loading spinner and tracking with GA)
+- Practical demo
+- Buefy components
 - Ready to use Vue plugins (vue-router, Vuex)
+- Useful tracking plugins(Google Analytics and Sentry)
 - Use of webpack and vue-loader with Hot Module Replacement
 - Unit Testing (with Karma + Mocha + vue-test-utils)
 - Add hash to filename when production build (avoiding cache problems)
