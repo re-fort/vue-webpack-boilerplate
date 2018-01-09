@@ -53,13 +53,6 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.js$/,
-        use: 'webpack-espower-loader',
-        include: [
-          path.resolve(__dirname, _test),
-        ],
-      },
-      {
         test: /\.json$/,
         use: ['json-loader'],
       },
