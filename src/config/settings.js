@@ -1,7 +1,10 @@
 // Setting
+const apiBaseUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:7070' : 'https://vue-webpack-boilerplate-api.herokuapp.com'
+
 export default {
   Api: {
-    baseUrl: process.env.NODE_ENV !== 'production' ? 'http://localhost:7070' : 'https://vue-webpack-boilerplate-api.herokuapp.com',
+    baseUrl: apiBaseUrl,
+    authUrl: `${apiBaseUrl}/auth`,
   },
   GA: {
     trackingId: process.env.NODE_ENV !== 'production' ? 'UA-XXX-X' : 'UA-XXX-X',

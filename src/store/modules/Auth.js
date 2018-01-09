@@ -1,24 +1,15 @@
 import { Xhr } from 'api'
 
-const state = {
+export const state = {
   token: '',
 }
 
-const mutations = {
-  token (state, token) {
-    state.token = token
-  },
-}
-
-const actions = {
-  updateToken({ commit }, token) {
-    commit('token', token)
-  },
-
-  verifyToken({ state }) {
+export const actions = {
+  verifyToken({ commit, state }) {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await Xhr.getWithToken('/verify', {}, state.token)
+        if (!res.data.valid) commit('updateToken', '')
         resolve(res.data.valid)
       } catch(error) {
         Vue.prototype.$raven.captureException(error)
@@ -28,9 +19,22 @@ const actions = {
   },
 }
 
+export const mutations = {
+  updateToken (state, token) {
+    state.token = token
+  },
+}
+
+export const getters = {
+  isLoggedIn(state) {
+    return state.token !== ''
+  },
+}
+
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
+  getters,
 }

@@ -6,9 +6,9 @@ export default {
     }
   },
   computed: {
-    dispItems() {
-      let startPage = (this.page - 1) * this.dispItemSize
-      return this.items.slice(startPage, startPage + this.dispItemSize)
+    itemsInPage() {
+      const startPage = (this.page - 1) * this.perPage
+      return this.items.slice(startPage, startPage + this.perPage)
     },
   },
   methods: {
