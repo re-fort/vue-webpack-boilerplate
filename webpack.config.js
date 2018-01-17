@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const extractTextPlugin = require('extract-text-webpack-plugin')
+const compressionWebpackPlugin = require('compression-webpack-plugin')
 
 const _project = 'vue-webpack-boilerplate'
 const _src = 'src'
@@ -140,5 +141,10 @@ if (isProduction()) {
       },
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new compressionWebpackPlugin({
+      test: /\.(js|css)$/,
+      asset: '[path][query]',
+      algorithm: 'gzip',
+    }),
   ])
 }
