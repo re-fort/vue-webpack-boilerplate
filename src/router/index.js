@@ -9,7 +9,7 @@ let router = new VueRouter({ routes })
 
 router.beforeEach(async (to, from, next) => {
   try {
-    store.commit('loading', true)
+    store.commit('updateLoading', true)
 
     // requires authentication
     if (to.matched.some(record => record.meta.requiresAuth)) {
