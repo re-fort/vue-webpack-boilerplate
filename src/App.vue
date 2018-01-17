@@ -6,7 +6,7 @@
         nav.navbar.hero.is-primary
           .navbar-brand
             router-link.nav-item(:to="'/'")
-              span vue-webpack-boilerplate
+              span.logo vue-webpack-boilerplate
             .navbar-menu.is-active
               .navbar-end
                 .navbar-item.github
@@ -96,6 +96,9 @@
 
     a.icon
       cursor: pointer
+
+    .logo
+      color: #fff
 
     @media screen and (max-width: 1023px)
       .navbar-menu
