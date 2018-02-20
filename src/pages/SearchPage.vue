@@ -31,7 +31,7 @@
             text: 'Search Repos',
             icon: 'book',
             url: '/search/repo',
-          }
+          },
         ],
         active: '',
         isLoading: false,

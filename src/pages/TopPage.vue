@@ -31,7 +31,7 @@
             text: 'My Page',
             icon: 'user',
             url: '/user',
-          }
+          },
         ],
         active: '',
         isLoading: false,

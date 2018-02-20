@@ -41,8 +41,8 @@ Vue.use(VueAnalytics, {
 new Vue({
   router,
   store,
-  template: '<App ref="app" />',
   components: {
     'App': App,
   },
+  template: '<App ref="app" />',
 }).$mount('#app')

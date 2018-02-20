@@ -53,7 +53,7 @@
           },
           {
             name: 'following',
-          }
+          },
         ],
         errorMessage: '',
         items: [],

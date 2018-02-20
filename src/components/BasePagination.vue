@@ -15,16 +15,16 @@
     props: {
       page: {
         type: Number,
-        required: true
+        required: true,
       },
       perPage: {
         type: Number,
-        required: true
+        required: true,
       },
       items: {
         type: Array,
-        required: true
-      }
+        required: true,
+      },
     },
     methods: {
       showPage(index) {

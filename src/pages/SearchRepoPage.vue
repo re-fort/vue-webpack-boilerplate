@@ -67,8 +67,8 @@
       searchOptions() {
         return {
           params: {
-            q: `${this.query} in:name`
-          }
+            q: `${this.query} in:name`,
+          },
         }
       },
     },
