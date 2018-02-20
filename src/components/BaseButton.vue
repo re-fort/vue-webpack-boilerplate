@@ -14,6 +14,7 @@
     props: {
       classes: {
         type: Array,
+        default: () => [],
       },
       disabled: {
         type: Boolean,
