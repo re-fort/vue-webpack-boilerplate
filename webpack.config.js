@@ -3,15 +3,12 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const extractTextPlugin = require('extract-text-webpack-plugin')
 
-const _project = 'vue-webpack-boilerplate'
 const _src = 'src'
 const _test = 'tests'
 const _dist = 'dist'
 const _stylesheets = 'stylesheets'
 const _static = 'static'
-const _publicPath = getPublicPath()
 
-function getPublicPath () { return isProduction() ? `/${_project}/` : '/' }
 const isTesting = () => process.env.NODE_ENV === 'testing'
 const isProduction = () => process.env.NODE_ENV === 'production'
 
@@ -72,24 +69,25 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif)$/,
         loader: 'file-loader',
         options: {
-          name: isProduction() ? `${_static}/[name].[hash].[ext]` : `${_static}/[name].[ext]`,
-          publicPath: _publicPath,
+          name: isProduction() ? `${_static}/images/[name].[hash].[ext]` : `${_static}/images/[name].[ext]`,
         },
       },
       {
         test: /\.(svg|eot|ttf)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
         options: {
-          name: isProduction() ? `${_static}/[name].[hash].[ext]` : `${_static}/[name].[ext]`,
-          publicPath: _publicPath,
+          name: isProduction() ? `${_static}/fonts/[name].[hash].[ext]` : `${_static}/fonts/[name].[ext]`,
+          // for font-awesome
+          publicPath: (path) => `../${path}`,
         },
       },
       {
         test: /\.woff(\d+)?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader',
         options: {
-          name: isProduction() ? `${_static}/[name].[hash].[ext]` : `${_static}/[name].[ext]`,
-          publicPath: _publicPath,
+          name: isProduction() ? `${_static}/fonts/[name].[hash].[ext]` : `${_static}/fonts/[name].[ext]`,
+          // for font-awesome
+          publicPath: (path) => `../${path}`,
         },
       },
     ],
