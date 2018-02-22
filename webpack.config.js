@@ -11,9 +11,9 @@ const _stylesheets = 'stylesheets'
 const _static = 'static'
 const _publicPath = getPublicPath()
 
-function isTesting () { return process.env.NODE_ENV === 'testing' }
-function isProduction () { return process.env.NODE_ENV === 'production' }
 function getPublicPath () { return isProduction() ? `/${_project}/` : '/' }
+const isTesting = () => process.env.NODE_ENV === 'testing'
+const isProduction = () => process.env.NODE_ENV === 'production'
 
 module.exports = {
   entry: {
