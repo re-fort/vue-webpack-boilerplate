@@ -1,11 +1,12 @@
 // vue-router
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
-import store from '../store'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
-let router = new VueRouter({ routes })
+const router = new VueRouter({ routes })
 
 router.beforeEach(async (to, from, next) => {
   try {

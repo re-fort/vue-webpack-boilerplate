@@ -2,8 +2,10 @@
 import 'filters'
 import settings from './config/settings'
 import axios from 'axios'
-import router from './router'
-import store from './store'
+import router from './router/index'
+import store from './store/index'
+import Vue from 'vue'
+import { Component }from 'vue-property-decorator'
 import Buefy from 'buefy'
 import VuexRouterSync from 'vuex-router-sync'
 import VueAnalytics from 'vue-analytics'
@@ -11,7 +13,7 @@ import VueAnalytics from 'vue-analytics'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
 
-import App from 'App'
+import App from 'src/App.vue'
 
 // Sass
 import 'stylesheets/bulma'
@@ -37,6 +39,13 @@ Vue.use(VueAnalytics, {
   router,
   checkDuplicatedScript: true,
 })
+
+// see: https://github.com/vuejs/vue-class-component#adding-custom-hooks
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteLeave',
+  'beforeRouteUpdate',
+])
 
 new Vue({
   router,

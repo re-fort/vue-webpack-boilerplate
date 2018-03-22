@@ -12,7 +12,7 @@
     "build": "npm run clean && cross-env NODE_ENV=production webpack --progress --hide-modules",
     "pre-build": "npm run clean && webpack --progress --hide-modules",
     "clean": "rimraf ./dist",
-    "lint": "eslint src/*.js src/**/*.js src/**/*.vue tests/**/*.js",
+    "lint": "eslint src/*.ts src/**/*.ts src/**/*.vue tests/**/*.js",
     "test": "npm run lint && cross-env NODE_ENV=testing npm run test:unit",
     "test:unit": "karma start tests/unit/karma.conf.js --single-run"
   },
@@ -32,6 +32,7 @@
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
+    "@types/node": "^9.4.7",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.2",
@@ -62,12 +63,17 @@
     "sass-loader": "^6.0.6",
     "sinon": "^4.3.0",
     "style-loader": "^0.20.2",
+    "ts-loader": "3.5.0",
+    "typescript": "^2.7.2",
+    "vue-class-component": "^6.2.0",
     "vue-hot-reload-api": "^2.2.4",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^14.1.1",
+    "vue-property-decorator": "^6.0.0",
     "vue-style-loader": "^4.0.2",
     "vue-template-compiler": "^2.5.13",
     "vue-test-utils": "@vue/test-utils@1.0.0-beta.11",
+    "vuex-class": "^0.3.0",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.1"
   }

@@ -8,28 +8,22 @@
     slot
 </template>
 
-<script>
-  export default {
-    name: 'BaseButton',
-    props: {
-      classes: {
-        type: Array,
-        default: () => [],
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-      value: {
-        type: [String, Number, Boolean, Object, Array],
-        default: '',
-      },
-    },
-    methods: {
-      onClick() {
-        this.$emit('onClick', this.value)
-      },
-    },
+<script lang="ts">
+  import Vue from 'vue'
+  import { Component, Prop }from 'vue-property-decorator'
+
+  @Component
+  export default class BaseButton extends Vue {
+    @Prop({ default: () => [] })
+    classes: Array<string>
+    @Prop({ default: false })
+    disabled: Boolean
+    @Prop({ default: '' })
+    value: [String, Number, Boolean, Object, Array<any>]
+
+    onClick() {
+      this.$emit('onClick', this.value)
+    }
   }
 </script>
 

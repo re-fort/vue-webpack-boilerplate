@@ -1,0 +1,5 @@
+declare module 'buefy'
+declare module 'vue-analytics'
+declare module 'raven-js/plugins/vue'
+declare module 'js-cookie'
+declare module 'vuex-persistedstate'

@@ -9,28 +9,22 @@
   )
 </template>
 
-<script>
-  export default {
-    name: 'BasePagination',
-    props: {
-      page: {
-        type: Number,
-        required: true,
-      },
-      perPage: {
-        type: Number,
-        required: true,
-      },
-      items: {
-        type: Array,
-        required: true,
-      },
-    },
-    methods: {
-      showPage(index) {
-        this.$emit('page', index)
-      },
-    },
+<script lang="ts">
+  import Vue from 'vue'
+  import { Component, Prop }from 'vue-property-decorator'
+
+  @Component
+  export default class BasePagination extends Vue {
+    @Prop({ required: true })
+    page: Number
+    @Prop({ required: true })
+    perPage: Number
+    @Prop({ required: true })
+    items: Array<any>
+
+    showPage(index: number) {
+      this.$emit('page', index)
+    }
   }
 </script>
 

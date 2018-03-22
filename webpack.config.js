@@ -14,7 +14,7 @@ const isProduction = () => process.env.NODE_ENV === 'production'
 
 module.exports = {
   entry: {
-    app: `./${_src}/main.js`,
+    app: `./${_src}/main.ts`,
     vendor: ['vue', 'axios', 'vue-router', 'vuex', 'vuex-router-sync', 'vuex-persistedstate', 'js-cookie', 'font-awesome/scss/font-awesome', 'buefy'],
   },
   output: {
@@ -32,13 +32,25 @@ module.exports = {
       'src': path.resolve(__dirname, './src'),
       'tests': path.resolve(__dirname, './tests'),
     },
-    extensions: ['.js', '.sass', '.scss', '.vue'],
+    extensions: ['.ts', '.js', '.sass', '.scss', '.vue'],
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
         use: ['vue-loader'],
+      },
+      {
+        test: /\.ts/,
+        use: [
+          'babel-loader',
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsSuffixTo: [/\.vue$/]
+            },
+          },
+        ],
       },
       {
         test: /\.js$/,
@@ -95,9 +107,6 @@ module.exports = {
   plugins: [
     new extractTextPlugin({
       filename: isProduction() ? `${_stylesheets}/[name].[contenthash].css` : `${_stylesheets}/[name].css`,
-    }),
-    new webpack.ProvidePlugin({
-      Vue: ['vue', 'default'],
     }),
     new htmlWebpackPlugin({
       filename: 'index.html',

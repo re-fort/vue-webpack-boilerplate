@@ -9,11 +9,13 @@
             a(@click="push") Log in
 </template>
 
-<script>
-  import Settings from 'config/settings'
+<script lang="ts">
+  import Vue from 'vue'
+  import { Component }from 'vue-property-decorator'
+  import { Route, NavigationGuard }from 'vue-router'
+  import Settings from 'src/config/settings'
 
-  export default {
-    name: 'Auth',
+  @Component({
     beforeRouteEnter (route, redirect, next) {
       return new Promise((resolve, reject) => {
         if (route.hash) {
@@ -38,13 +40,14 @@
           })
         }
       })
-    },
-    methods: {
-      push() {
-        this.$ga.event('auth', 'click', 'login', 1)
-        this.$store.commit('loading', true)
-        location.href = Settings.Api.authUrl
-      },
-    },
+    }
+  })
+  export default class Auth extends Vue {
+
+    push() {
+      this.$ga.event('auth', 'click', 'login', 1)
+      this.$store.commit('loading', true)
+      location.href = Settings.Api.authUrl
+    }
   }
 </script>

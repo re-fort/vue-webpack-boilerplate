@@ -1,11 +1,14 @@
-import { Xhr } from 'api'
+import Vue from 'vue'
+import { ActionContext } from 'vuex'
+import { Xhr } from 'src/api/index'
+import { IRootState, IAuthState } from 'src/interfaces/store';
 
-export const state = {
+export const state: IAuthState = {
   token: '',
 }
 
 export const actions = {
-  verifyToken({ commit, state }) {
+  verifyToken({ commit, state }: ActionContext<IAuthState, IRootState>) {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await Xhr.getWithToken('/verify', {}, state.token)
@@ -20,13 +23,13 @@ export const actions = {
 }
 
 export const mutations = {
-  updateToken (state, token) {
+  updateToken (state: IAuthState, token: string) {
     state.token = token
   },
 }
 
 export const getters = {
-  isLoggedIn(state) {
+  isLoggedIn(state: IAuthState) {
     return state.token !== ''
   },
 }

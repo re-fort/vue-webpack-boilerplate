@@ -11,38 +11,38 @@
           span {{ button.text }}
 </template>
 
-<script>
-  import BaseButton from 'components/BaseButton'
+<script lang="ts">
+  import Vue from 'vue'
+  import { Component }from 'vue-property-decorator'
+  import { ILinkButton } from 'src/interfaces/components'
+  import BaseButton from 'src/components/BaseButton'
 
-  export default {
-    name: 'TopPage',
+  @Component({
     components: {
       BaseButton,
     },
-    data() {
-      return {
-        buttons: [
-          {
-            text: 'Search',
-            icon: 'search',
-            url: '/search',
-          },
-          {
-            text: 'My Page',
-            icon: 'user',
-            url: '/user',
-          },
-        ],
-        active: '',
-        isLoading: false,
-      }
-    },
-    methods: {
-      push(button) {
-        this.active = button.icon
-        this.isLoading = true
-        this.$router.push(button.url)
+  })
+
+  export default class TopPage extends Vue {
+    buttons: Array<ILinkButton> = [
+      {
+        text: 'Search',
+        icon: 'search',
+        url: '/search',
       },
-    },
+      {
+        text: 'My Page',
+        icon: 'user',
+        url: '/user',
+      },
+    ]
+    active: string = ''
+    isLoading: boolean = false
+
+    push(button: ILinkButton) {
+      this.active = button.icon
+      this.isLoading = true
+      this.$router.push(button.url)
+    }
   }
 </script>

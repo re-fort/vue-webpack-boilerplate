@@ -21,47 +21,47 @@
             b-icon(icon="github")
 </template>
 
-<script>
-  import { mapState, mapGetters, mapMutations } from 'vuex'
+<script lang="ts">
+  import Vue from 'vue'
+  import { Component } from 'vue-property-decorator'
+  import { State, Getter, Mutation } from 'vuex-class'
   import Settings from 'config/settings'
-  import { Xhr } from 'api'
-  import BaseButton from 'components/BaseButton'
+  import { Xhr } from 'src/api'
+  import { namespace } from 'src/store/helper'
+  import BaseButton from 'src/components/BaseButton'
 
-  export default {
-    name: 'App',
+  const { Getter: AuthGetter } = namespace('Auth')
+
+  @Component({
     components: {
       BaseButton,
     },
-    computed: {
-      ...mapState(['loading']),
-      ...mapState('Auth', ['token']),
-      ...mapGetters('Auth', ['isLoggedIn']),
-    },
+  })
+  export default class App extends Vue {
+    @State loading: boolean
+    @AuthGetter isLoggedIn: boolean
+    @Mutation updateLoading: Function
+
+    loginButtonClasses: Array<String> = ['navbar-item', 'is-primary', 'is-inverted', 'is-outlined']
+
     created() {
       // it takes a little time to start app in case of heroku
       Xhr.getWithoutToken('/ping')
-    },
-    data() {
-      return {
-        loginButtonClasses: ['navbar-item', 'is-primary', 'is-inverted', 'is-outlined'],
+    }
+
+    push() {
+      if (this.isLoggedIn) {
+        this.$ga.event('auth', 'click', 'logout', 1)
+        this.updateLoading(true)
+        this.$toast.open({ message: 'logged out', type: 'is-info' })
+        this.updateLoading(false)
+        this.$router.push('/auth/#')
+      } else {
+        this.$ga.event('auth', 'click', 'login', 1)
+        this.updateLoading(true)
+        location.href = Settings.Api.authUrl
       }
-    },
-    methods: {
-      ...mapMutations(['updateLoading']),
-      push() {
-        if (this.isLoggedIn) {
-          this.$ga.event('auth', 'click', 'logout', 1)
-          this.updateLoading(true)
-          this.$toast.open({ message: 'logged out', type: 'is-info' })
-          this.updateLoading(false)
-          this.$router.push('/auth/#')
-        } else {
-          this.$ga.event('auth', 'click', 'login', 1)
-          this.updateLoading(true)
-          location.href = Settings.Api.authUrl
-        }
-      },
-    },
+    }
   }
 </script>
 

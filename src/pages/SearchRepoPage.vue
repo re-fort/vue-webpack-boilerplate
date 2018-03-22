@@ -36,42 +36,40 @@
         base-pagination(:page="page", :perPage="perPage", :items="items", @page="setPage")
 </template>
 
-<script>
-  import { URL } from 'api/index'
-  import BaseButton from 'components/BaseButton'
-  import BasePagination from 'components/BasePagination'
-  import mixinSearch from 'mixins/search'
-  import mixinPage from 'mixins/page'
+<script lang="ts">
+  import { mixins }from 'vue-class-component'
+  import { Component }from 'vue-property-decorator'
+  import { URL } from 'src/api'
+  import BaseButton from 'src/components/BaseButton'
+  import BasePagination from 'src/components/BasePagination'
+  import mixinSearch from 'src/mixins/search'
+  import mixinPage from 'src/mixins/page'
 
-  export default {
-    name: 'SearchRepoPage',
+  @Component({
     components: {
       BaseButton,
       BasePagination,
     },
-    mixins: [ mixinSearch, mixinPage ],
-    data() {
+  })
+
+  export default class SearchRepoPage extends mixins(mixinSearch, mixinPage) {
+    query: string = ''
+    errorMessage: string = ''
+    items: Array<any> = []
+    perPage: number = 5
+    isLoading: boolean = false
+
+    searchRepo() {
+      if (this.isLoading) return
+      this.search(URL.FETCH_REPOSITORIES, this.searchOptions())
+    }
+    searchOptions() {
       return {
-        query: '',
-        errorMessage: '',
-        items: [],
-        perPage: 5,
-        isLoading: false,
+        params: {
+          q: `${this.query} in:name`,
+        },
       }
-    },
-    methods: {
-      searchRepo() {
-        if (this.isLoading) return
-        this.search(URL.FETCH_REPOSITORIES, this.searchOptions())
-      },
-      searchOptions() {
-        return {
-          params: {
-            q: `${this.query} in:name`,
-          },
-        }
-      },
-    },
+    }
   }
 </script>
 
